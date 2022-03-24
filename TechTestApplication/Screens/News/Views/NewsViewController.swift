@@ -56,6 +56,8 @@ extension NewsViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: NewsCell.identifier, for: indexPath) as? NewsCell else { fatalError("xib does not exists") }
+        cell.textLabel?.text = "Title"
+        cell.detailTextLabel?.text = "Details Text"
 //        cell.contentView.backgroundColor = UIColor.yellow
         return cell
     }
