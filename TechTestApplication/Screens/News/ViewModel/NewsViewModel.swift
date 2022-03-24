@@ -8,4 +8,11 @@
 import Foundation
 
 class NewsViewModel{
+    
+    private var newsDataService: NewsDataServiceProtocol
+    var reloadTableView: (() -> Void)?
+    
+    init(newsDataService: NewsDataServiceProtocol = NewasDataService()) {
+        self.newsDataService = newsDataService
+    }
 }
