@@ -99,6 +99,9 @@
 		55F36A4327EC56D30027BDAF /* TechTestApplication */ = {
 			isa = PBXGroup;
 			children = (
+				55F36A7627EC71D10027BDAF /* Services */,
+				55F36A7527EC71A60027BDAF /* Screens */,
+				55F36A7427EC718C0027BDAF /* Helpers */,
 				55F36A4427EC56D30027BDAF /* AppDelegate.swift */,
 				55F36A4627EC56D30027BDAF /* SceneDelegate.swift */,
 				55F36A4827EC56D30027BDAF /* ViewController.swift */,
@@ -125,6 +128,59 @@
 				55F36A6727EC56D50027BDAF /* TechTestApplicationUITestsLaunchTests.swift */,
 			);
 			path = TechTestApplicationUITests;
+			sourceTree = "<group>";
+		};
+		55F36A7427EC718C0027BDAF /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		55F36A7527EC71A60027BDAF /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				55F36A7727EC71E50027BDAF /* News */,
+			);
+			path = Screens;
+			sourceTree = "<group>";
+		};
+		55F36A7627EC71D10027BDAF /* Services */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		55F36A7727EC71E50027BDAF /* News */ = {
+			isa = PBXGroup;
+			children = (
+				55F36A7A27EC724E0027BDAF /* ViewModel */,
+				55F36A7927EC72460027BDAF /* Views */,
+				55F36A7827EC723A0027BDAF /* Model */,
+			);
+			path = News;
+			sourceTree = "<group>";
+		};
+		55F36A7827EC723A0027BDAF /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		55F36A7927EC72460027BDAF /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		55F36A7A27EC724E0027BDAF /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
