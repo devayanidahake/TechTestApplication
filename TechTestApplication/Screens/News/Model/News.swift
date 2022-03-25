@@ -6,15 +6,25 @@
 //
 
 import Foundation
+typealias NewsArray = [News]
+
+struct NewsDict: Codable {
+    let category: String
+    let newsArray: NewsArray
+
+    enum CodingKeys: String, CodingKey {
+        case category
+        case newsArray = "data"
+    }
+}
+
 // MARK: - News
 struct News: Codable {
-    let id: String
     let author: String
     let title: String
     let date: String
 
     enum CodingKeys: String, CodingKey {
-        case id
         case author
         case title
         case date

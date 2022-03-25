@@ -15,6 +15,7 @@ class NewsViewController: UIViewController{
     lazy var viewModel = {
         NewsViewModel()
     }()
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,6 +36,15 @@ class NewsViewController: UIViewController{
     }
     
     func initViewModel() {
+        // Get employees data
+        viewModel.getNewsArray()
+        
+        // Reload TableView closure
+        viewModel.reloadTableView = { [weak self] in
+            DispatchQueue.main.async {
+                self?.tableView.reloadData()
+            }
+        }
     }
     
     
@@ -51,14 +61,15 @@ extension NewsViewController: UITableViewDelegate {
 
 extension NewsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return viewModel.newsArray.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: NewsCell.identifier, for: indexPath) as? NewsCell else { fatalError("xib does not exists") }
-        cell.textLabel?.text = "Title"
-        cell.detailTextLabel?.text = "Details Text"
-//        cell.contentView.backgroundColor = UIColor.yellow
+        let cellVM = viewModel.getCellViewModel(at: indexPath)
+        
+        cell.textLabel?.text = cellVM.title
+        cell.detailTextLabel?.text = cellVM.author
         return cell
     }
 }
