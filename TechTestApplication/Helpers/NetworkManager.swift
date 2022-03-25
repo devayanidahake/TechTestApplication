@@ -26,7 +26,13 @@ class NetworkManager {
     }
        
     
-    func GET(url: String, params: [String: String], httpHeader: HTTPHeaderFields, complete: @escaping (Bool, Data?) -> ()) {
+    func GET(url: String, httpHeader: HTTPHeaderFields, complete: @escaping (Bool, Data?, NetworkError?) -> ()) {
+        
+        if !NetworkMonitor.shared.isReachable {
+            print("Error: internet is not working")
+            complete(false, nil, NetworkError.noNetwork)
+            return
+        }
         guard var components = URLComponents(string: url) else {
             print("Error: cannot create URLCompontents")
             return
@@ -58,26 +64,28 @@ class NetworkManager {
             guard error == nil else {
                 print("Error: problem calling GET")
                 print(error!)
-                complete(false, nil)
+                complete(false, nil, NetworkError.unknown)
                 return
             }
             guard let data = data else {
                 print("Error: did not receive data")
-                complete(false, nil)
+                complete(false, nil,NetworkError.responseError)
                 return
             }
             guard let response = response as? HTTPURLResponse, (200 ..< 300) ~= response.statusCode else {
                 print("Error: HTTP request failed")
-                complete(false, nil)
+                complete(false, nil, NetworkError.unknown)
                 return
             }
-            complete(true, data)
+            complete(true, data, nil)
         }.resume()
     }
 }
 
 
+
 enum NetworkError: Error {
+    case noNetwork
     case invalidURL
     case responseError
     case unknown
@@ -92,7 +100,11 @@ extension NetworkError: LocalizedError {
             return NSLocalizedString("Unexpected status code", comment: "Invalid response")
         case .unknown:
             return NSLocalizedString("Unknown error", comment: "Unknown error")
+        case .noNetwork:
+            return NSLocalizedString("Please check your internet connection", comment: "Unknown error")
         }
     }
 }
+
+
 

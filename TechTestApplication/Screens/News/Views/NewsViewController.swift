@@ -39,9 +39,9 @@ class NewsViewController: UIViewController{
     }
     
     func initViewModel() {
-        viewModel.showAnimator = { success in
+        viewModel.showAnimator = { [weak self] (showAnimator) in
             DispatchQueue.main.async {
-                success ? self.animator.startAnimating():self.animator.stopAnimating()
+                showAnimator ? self?.animator.startAnimating():self?.animator.stopAnimating()
             }
         }
 
@@ -52,6 +52,16 @@ class NewsViewController: UIViewController{
         viewModel.reloadTableView = { [weak self] in
             DispatchQueue.main.async {
                 self?.tableView.reloadData()
+            }
+        }
+        
+        // Show network error message
+        viewModel.showNetworkError = { [weak self](networkError) in
+            DispatchQueue.main.async {
+                guard let sourceVC = self else{return}
+                Alert.present(title: networkError.errorDescription, message: "", actions: .ok(handler: {
+                    print("ok button pressed")
+                }), from: sourceVC)
             }
         }
     }

@@ -12,6 +12,7 @@ class NewsViewModel{
     private var newsDataService: NewsDataServiceProtocol
     var reloadTableView: (() -> Void)?
     var showAnimator: ((Bool) -> Void)?
+    var showNetworkError: ((NetworkError) -> Void)?
 
     var newsArray = NewsArray()
     var isDataLoading: Bool = true {
@@ -25,6 +26,12 @@ class NewsViewModel{
             reloadTableView?()
         }
     }
+    
+    var serverError: NetworkError = .unknown {
+        didSet{
+            showNetworkError?(serverError)
+        }
+    }
 
     
     init(newsDataService: NewsDataServiceProtocol = NewasDataService()) {
@@ -33,18 +40,25 @@ class NewsViewModel{
     
     func getNewsArray() {
         self.isDataLoading = true
-        newsDataService.getNews { success, results, error in
+        newsDataService.getNews { success, results, networkError in
+            self.isDataLoading = false
+
+            if let error = networkError {
+                //ToDO:
+                self.serverError = error
+                //self.showNetworkError?(error)
+                return
+            }
+
             if success, let newsResults = results {
                 self.fetchData(news: newsResults)
                 self.isDataLoading = false
-            } else {
-                print(error!)
             }
         }
     }
     
     func fetchData(news: NewsArray) {
-        self.newsArray = news // Cache
+        self.newsArray = news // To Do for unit testing
         var cellModels = [NewsCellViewModel]()
         for newsObject in newsArray {
             cellModels.append(createCellModel(news: newsObject))
