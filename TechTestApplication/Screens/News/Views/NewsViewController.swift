@@ -12,6 +12,8 @@ class NewsViewController: UIViewController{
     
     @IBOutlet weak var tableView: UITableView!
     
+    @IBOutlet weak var animator: UIActivityIndicatorView!
+    
     lazy var viewModel = {
         NewsViewModel()
     }()
@@ -33,10 +35,17 @@ class NewsViewController: UIViewController{
         tableView.allowsSelection = false
 
         tableView.register(NewsCell.nib, forCellReuseIdentifier: NewsCell.identifier)
+        animator.startAnimating()
     }
     
     func initViewModel() {
-        // Get employees data
+        viewModel.showAnimator = { success in
+            DispatchQueue.main.async {
+                success ? self.animator.startAnimating():self.animator.stopAnimating()
+            }
+        }
+
+        // Get news data
         viewModel.getNewsArray()
         
         // Reload TableView closure
@@ -53,7 +62,7 @@ class NewsViewController: UIViewController{
 
 extension NewsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 130
+        return 90
     }
 }
 
@@ -69,6 +78,8 @@ extension NewsViewController: UITableViewDataSource {
         let cellVM = viewModel.getCellViewModel(at: indexPath)
         
         cell.textLabel?.text = cellVM.title
+        cell.textLabel?.numberOfLines = 0
+        cell.textLabel?.lineBreakMode = .byWordWrapping
         cell.detailTextLabel?.text = cellVM.author
         return cell
     }

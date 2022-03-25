@@ -11,7 +11,14 @@ class NewsViewModel{
     
     private var newsDataService: NewsDataServiceProtocol
     var reloadTableView: (() -> Void)?
+    var showAnimator: ((Bool) -> Void)?
+
     var newsArray = NewsArray()
+    var isDataLoading: Bool = true {
+        didSet{
+            showAnimator?(isDataLoading)
+        }
+    }
     
     var newsCellViewModels = [NewsCellViewModel]() {
         didSet {
@@ -25,9 +32,11 @@ class NewsViewModel{
     }
     
     func getNewsArray() {
+        self.isDataLoading = true
         newsDataService.getNews { success, results, error in
             if success, let newsResults = results {
                 self.fetchData(news: newsResults)
+                self.isDataLoading = false
             } else {
                 print(error!)
             }
