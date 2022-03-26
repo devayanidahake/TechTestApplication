@@ -22,7 +22,7 @@ extension Alert {
     enum Action {
         case ok(handler: (() -> Void)?)
         case close
-
+        
         // Returns the title of our action button
         private var title: String {
             switch self {
@@ -32,7 +32,7 @@ extension Alert {
                 return "Close"
             }
         }
-
+        
         // Returns the completion handler of our button
         private var handler: (() -> Void)? {
             switch self {
@@ -42,7 +42,7 @@ extension Alert {
                 return nil
             }
         }
-
+        
         var alertAction: UIAlertAction {
             return UIAlertAction(title: title, style: .default, handler: { _ in
                 if let handler = self.handler {

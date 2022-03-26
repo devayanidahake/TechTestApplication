@@ -20,7 +20,7 @@ class NewsViewController: UIViewController{
         NewsViewModel()
     }() as NewsViewModelProtocol
     
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         initView()
@@ -46,6 +46,7 @@ class NewsViewController: UIViewController{
     
     fileprivate func initViewModel() {
         viewModel.showAnimator = { [weak self] (showAnimator) in
+            //TODO: Need to use async await for clean code
             DispatchQueue.main.async {
                 showAnimator ? self?.animator.startAnimating():self?.animator.stopAnimating()
             }
@@ -60,7 +61,7 @@ class NewsViewController: UIViewController{
                 }), from: sourceVC)
             }
         }
-
+        
         // Get news data
         viewModel.getNewsArray()
         
@@ -89,7 +90,7 @@ extension NewsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.newsArray.count
     }
-
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: NewsCell.identifier, for: indexPath) as? NewsCell else { fatalError("xib does not exists") }
         let cellVM = viewModel.getCellViewModel(at: indexPath)

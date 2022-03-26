@@ -28,7 +28,7 @@ final class NewsViewModel : NewsViewModelProtocol{
     var showAPIError: ((APIError) -> Void)?
     
     private var newsDataService: NewsDataServiceProtocol
-        
+    
     var newsArray = NewsArray()
     
     //Obeserved Properties
@@ -49,7 +49,7 @@ final class NewsViewModel : NewsViewModelProtocol{
             showAPIError?(serverError)
         }
     }
-
+    
     //MARK: Methods
     init(newsDataService: NewsDataServiceProtocol = NewasDataService()) {
         self.newsDataService = newsDataService
@@ -59,13 +59,13 @@ final class NewsViewModel : NewsViewModelProtocol{
         self.isDataLoading = true
         newsDataService.getNews { success, results, APIError in
             self.isDataLoading = false
-
+            
             if let error = APIError {
                 //ToDO:
                 self.serverError = error
                 return
             }
-
+            
             if success, let newsResults = results {
                 self.fetchData(news: newsResults)
             }

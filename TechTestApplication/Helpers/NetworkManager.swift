@@ -21,34 +21,26 @@ class NetworkManager {
     
     static let shared = NetworkManager()
     
-    private init() {
-        
-    }
-       
+    private init() {}
     
     func GET(url: String, httpHeader: HTTPHeaderFields, complete: @escaping (Bool, Data?, APIError?) -> ()) {
         
         if !NetworkMonitor.shared.isReachable {
-           // print("Error: internet is not working")
             complete(false, nil, APIError.noNetwork)
             return
         }
         guard let components = URLComponents(string: url) else {
-           // print("Error: cannot create URLCompontents")
             complete(false, nil, APIError.invalidURL)
-
             return
         }
-
+        
         guard let url = components.url else {
-           // print("Error: cannot create URL")
             complete(false, nil, APIError.invalidURL)
-
             return
         }
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
-
+        
         switch httpHeader {
         case .application_json:
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -77,8 +69,6 @@ class NetworkManager {
         }.resume()
     }
 }
-
-
 
 enum APIError: Error {
     case noNetwork
