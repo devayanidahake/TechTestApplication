@@ -7,14 +7,28 @@
 
 import Foundation
 
-class NewsViewModel{
+protocol NewsViewModelProtocol: AnyObject {
+    var reloadTableView: (() -> Void)? { get  set}
+    var showAnimator: ((Bool) -> Void)? { get  set}
+    var showAPIError: ((APIError) -> Void)? { get  set}
+    var newsArray: NewsArray { get }
+    var newsCellViewModels:[NewsCellViewModel] { get }
+    
+    func getNewsArray()
+    func getCellViewModel(at indexPath: IndexPath) -> NewsCellViewModel
+}
+
+final class NewsViewModel : NewsViewModelProtocol{
+    var showAnimator: ((Bool) -> Void)?
+    
+    var reloadTableView: (() -> Void)?
+    
+    var showAPIError: ((APIError) -> Void)?
     
     private var newsDataService: NewsDataServiceProtocol
     
     //MARK: Properties
-    var reloadTableView: (() -> Void)?
-    var showAnimator: ((Bool) -> Void)?
-    var showAPIError: ((APIError) -> Void)?
+    
     var newsArray = NewsArray()
     
     //Obeserved Properties

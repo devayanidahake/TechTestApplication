@@ -16,9 +16,9 @@ class NewsViewController: UIViewController{
     
     @IBOutlet weak var animator: UIActivityIndicatorView!
     
-    lazy var viewModel = {
+    lazy var viewModel: NewsViewModelProtocol = {
         NewsViewModel()
-    }()
+    }() as NewsViewModelProtocol
     
 
     override func viewDidLoad() {
