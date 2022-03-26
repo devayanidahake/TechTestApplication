@@ -73,7 +73,7 @@ final class NewsViewModel : NewsViewModelProtocol{
     }
     
     
-    func fetchData(news: NewsArray) {
+    fileprivate func fetchData(news: NewsArray) {
         self.newsArray = news // To Do for unit testing
         var cellModels = [NewsCellViewModel]()
         for newsObject in newsArray {
@@ -82,7 +82,7 @@ final class NewsViewModel : NewsViewModelProtocol{
         self.newsCellViewModels = cellModels
     }
     
-    func createCellModel(news: News) -> NewsCellViewModel {
+    fileprivate func createCellModel(news: News) -> NewsCellViewModel {
         let newsAuthor = news.author
         let newsTitle = news.title
         let newsDate = news.date

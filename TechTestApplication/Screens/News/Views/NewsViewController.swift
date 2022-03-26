@@ -38,13 +38,13 @@ class NewsViewController: UIViewController{
         tableView.register(NewsCell.nib, forCellReuseIdentifier: NewsCell.identifier)
     }
     
-    func initView() {
+    fileprivate func initView() {
         setTableViewProperties()
         animator.startAnimating()
         self.navigationItem.title = navigationTitle
     }
     
-    func initViewModel() {
+    fileprivate func initViewModel() {
         viewModel.showAnimator = { [weak self] (showAnimator) in
             DispatchQueue.main.async {
                 showAnimator ? self?.animator.startAnimating():self?.animator.stopAnimating()
