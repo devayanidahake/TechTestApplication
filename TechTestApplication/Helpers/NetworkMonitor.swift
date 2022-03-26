@@ -22,10 +22,8 @@ class NetworkMonitor {
                 self?.isReachableOnCellular = path.isExpensive
 
                 if path.status == .satisfied {
-                    print("We're connected!")
                     // post connected notification
                 } else {
-                    print("No connection.")
                     // post disconnected notification
                 }
                 print(path.isExpensive)

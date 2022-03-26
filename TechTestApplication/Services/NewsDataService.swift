@@ -7,7 +7,7 @@
 
 import Foundation
 protocol NewsDataServiceProtocol {
-    func getNews(completion: @escaping (_ success: Bool, _ results: NewsArray?, _ error: NetworkError?) -> ())
+    func getNews(completion: @escaping (_ success: Bool, _ results: NewsArray?, _ error: APIError?) -> ())
     
 }
 struct URLConstants {
@@ -15,18 +15,18 @@ struct URLConstants {
 }
 
 class NewasDataService: NewsDataServiceProtocol {
-    func getNews(completion: @escaping (Bool, NewsArray?, NetworkError?) -> ()) {
+    func getNews(completion: @escaping (Bool, NewsArray?, APIError?) -> ()) {
        
-        NetworkManager.shared.GET(url: URLConstants.newsURL, httpHeader: .application_json) { success, data, networkError in
+        NetworkManager.shared.GET(url: URLConstants.newsURL, httpHeader: .application_json) { success, data, APIError in
             if success {
             do {
                 let model = try JSONDecoder().decode(NewsDict.self, from: data!)
                 completion(true, model.newsArray, nil)
             } catch {
-                completion(false, nil, networkError)
+                completion(false, nil, APIError)
             }
         } else {
-            completion(false, nil,networkError)
+            completion(false, nil,APIError)
         }
     }
     }

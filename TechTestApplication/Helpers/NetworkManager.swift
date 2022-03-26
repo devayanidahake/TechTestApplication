@@ -26,23 +26,23 @@ class NetworkManager {
     }
        
     
-    func GET(url: String, httpHeader: HTTPHeaderFields, complete: @escaping (Bool, Data?, NetworkError?) -> ()) {
+    func GET(url: String, httpHeader: HTTPHeaderFields, complete: @escaping (Bool, Data?, APIError?) -> ()) {
         
         if !NetworkMonitor.shared.isReachable {
            // print("Error: internet is not working")
-            complete(false, nil, NetworkError.noNetwork)
+            complete(false, nil, APIError.noNetwork)
             return
         }
         guard let components = URLComponents(string: url) else {
            // print("Error: cannot create URLCompontents")
-            complete(false, nil, NetworkError.invalidURL)
+            complete(false, nil, APIError.invalidURL)
 
             return
         }
 
         guard let url = components.url else {
            // print("Error: cannot create URL")
-            complete(false, nil, NetworkError.invalidURL)
+            complete(false, nil, APIError.invalidURL)
 
             return
         }
@@ -62,15 +62,15 @@ class NetworkManager {
         let session = URLSession(configuration: config)
         session.dataTask(with: request) { data, response, error in
             guard error == nil else {
-                complete(false, nil, NetworkError.unknown)
+                complete(false, nil, APIError.unknown)
                 return
             }
             guard let data = data else {
-                complete(false, nil,NetworkError.responseError)
+                complete(false, nil,APIError.responseError)
                 return
             }
             guard let response = response as? HTTPURLResponse, (200 ..< 300) ~= response.statusCode else {
-                complete(false, nil, NetworkError.unknown)
+                complete(false, nil, APIError.unknown)
                 return
             }
             complete(true, data, nil)
@@ -80,7 +80,7 @@ class NetworkManager {
 
 
 
-enum NetworkError: Error {
+enum APIError: Error {
     case noNetwork
     case invalidURL
     case responseError
@@ -88,7 +88,7 @@ enum NetworkError: Error {
     case noError
 }
 
-extension NetworkError: LocalizedError {
+extension APIError: LocalizedError {
     var errorDescription: String? {
         switch self {
         case .invalidURL:

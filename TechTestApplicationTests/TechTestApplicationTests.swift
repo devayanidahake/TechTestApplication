@@ -26,53 +26,79 @@ class TechTestApplicationTests: XCTestCase {
 
 
     
-    func testGetNewsArrayForSuccess() throws {
-        sut.getNewsArray()
-        XCTAssertEqual( sut.newsArray, NewsDict.getMockdata().newsArray )
+    func testGetNews() {
+            // Given
+            mockAPIService.completeNews = [News]()
 
+            // When
+            sut.getNewsArray()
         
-    }
+            // Assert
+            XCTAssert(mockAPIService!.isgetNewsCalled)
+        }
     
-    func testGetNewsArrayForFailure() throws {
-        // Given a failed Network Error
-        let error = NetworkError.responseError
-        sut.getNewsArray()
-        XCTAssertEqual(sut.serverError, error)
-
-        
-    }
     
-    //API is successful but data is nil
-    func testGetNewsArrayForSuccessWithoutData() throws {
-        // Given a failed Network Error
-        let error = NetworkError.responseError
-        sut.getNewsArray()
-        XCTAssertEqual(sut.serverError, error)
-
-        
-    }
+    func testGetNewsFail() {
+            
+            // Given a failed fetch with a certain failure
+            let error = APIError.responseError
+            
+            // When
+            sut.getNewsArray()
+            
+            mockAPIService.fetchFail(error: error )
+            
+            // Sut should display predefined error message
+        XCTAssertEqual( sut.serverError, error )
+            
+        }
     
-    //    override func setUpWithError() throws {
-    //        // Put setup code here. This method is called before the invocation of each test method in the class.
-    //    }
-    //
-    //    override func tearDownWithError() throws {
-    //        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    //    }
+    func test_loading_when_fetching() {
+            
+            //Given
+            var loadingStatus = false
+            let expect = XCTestExpectation(description: "Loading status updated")
 
-//    func testExample() throws {
-//        // This is an example of a functional test case.
-//        // Use XCTAssert and related functions to verify your tests produce the correct results.
-//        // Any test you write for XCTest can be annotated as throws and async.
-//        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-//        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
-//    }
-//
-//    func testPerformanceExample() throws {
-//        // This is an example of a performance test case.
-//        self.measure {
-//            // Put the code you want to measure the time of here.
-//        }
-//    }
+        sut.showAnimator = { (showAnimator) in
+            loadingStatus = (self.sut!.isDataLoading)
+
+            expect.fulfill()
+
+        }
+            expect.fulfill()
+            //when fetching
+            sut.getNewsArray()
+            
+            // Assert
+            XCTAssertTrue(loadingStatus)
+            
+            // When finished fetching
+            mockAPIService!.fetchSuccess()
+            XCTAssertFalse( loadingStatus )
+            
+            wait(for: [expect], timeout: 1.0)
+        }
+    
+    func test_create_cell_view_model() {
+            // Given
+        let news = StubGenerator.stubNews()
+            mockAPIService.completeNews = news
+            let expect = XCTestExpectation(description: "reload closure triggered")
+            sut.reloadTableView = { () in
+                expect.fulfill()
+            }
+            
+            // When
+
+            sut.getNewsArray()
+            mockAPIService.fetchSuccess()
+            
+            // Number of cell view model is equal to the number of photos
+        XCTAssertEqual( sut.newsCellViewModels.count, news.count )
+            
+            // XCTAssert reload closure triggered
+            wait(for: [expect], timeout: 1.0)
+            
+        }
 
 }

@@ -10,11 +10,14 @@ import Foundation
 class NewsViewModel{
     
     private var newsDataService: NewsDataServiceProtocol
+    
+    //MARK: Properties
     var reloadTableView: (() -> Void)?
     var showAnimator: ((Bool) -> Void)?
-    var showNetworkError: ((NetworkError) -> Void)?
-
+    var showAPIError: ((APIError) -> Void)?
     var newsArray = NewsArray()
+    
+    //Obeserved Properties
     var isDataLoading: Bool = true {
         didSet{
             showAnimator?(isDataLoading)
@@ -27,23 +30,23 @@ class NewsViewModel{
         }
     }
     
-    var serverError: NetworkError = .noError {
+    var serverError: APIError = .noError {
         didSet{
-            showNetworkError?(serverError)
+            showAPIError?(serverError)
         }
     }
 
-    
+    //MARK: Methods
     init(newsDataService: NewsDataServiceProtocol = NewasDataService()) {
         self.newsDataService = newsDataService
     }
     
     func getNewsArray() {
         self.isDataLoading = true
-        newsDataService.getNews { success, results, networkError in
+        newsDataService.getNews { success, results, APIError in
             self.isDataLoading = false
 
-            if let error = networkError {
+            if let error = APIError {
                 //ToDO:
                 self.serverError = error
                 return
@@ -51,10 +54,10 @@ class NewsViewModel{
 
             if success, let newsResults = results {
                 self.fetchData(news: newsResults)
-                self.isDataLoading = false
             }
         }
     }
+    
     
     func fetchData(news: NewsArray) {
         self.newsArray = news // To Do for unit testing

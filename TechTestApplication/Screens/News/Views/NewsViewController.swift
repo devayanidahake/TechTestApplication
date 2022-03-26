@@ -52,10 +52,10 @@ class NewsViewController: UIViewController{
         }
         
         // Show network error message
-        viewModel.showNetworkError = { [weak self](networkError) in
+        viewModel.showAPIError = { [weak self](APIError) in
             DispatchQueue.main.async {
                 guard let sourceVC = self else{return}
-                Alert.present(title: networkError.errorDescription, message: "", actions: .ok(handler: {
+                Alert.present(title: APIError.errorDescription, message: "", actions: .ok(handler: {
                     print("ok button pressed")
                 }), from: sourceVC)
             }

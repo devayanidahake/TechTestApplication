@@ -1,5 +1,6 @@
 included:
   - Source
+  - Test TechTestApplication
   - Tests
 excluded:
   - Tests/SwiftLintFrameworkTests/Resources
@@ -107,6 +108,6 @@ custom_rules:
   rule_test_function:
     included: Tests/SwiftLintFrameworkTests/RulesTests.swift
     name: Rule Test Function
-    message: Rule Test Function mustn't end with `rule`
+    message: Rule Test Function mustnt end with `rule`
     regex: func\s*test\w+(r|R)ule\(\)
     severity: error
