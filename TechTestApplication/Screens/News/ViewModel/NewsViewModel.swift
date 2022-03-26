@@ -27,7 +27,7 @@ class NewsViewModel{
         }
     }
     
-    var serverError: NetworkError = .unknown {
+    var serverError: NetworkError = .noError {
         didSet{
             showNetworkError?(serverError)
         }
@@ -46,7 +46,6 @@ class NewsViewModel{
             if let error = networkError {
                 //ToDO:
                 self.serverError = error
-                //self.showNetworkError?(error)
                 return
             }
 

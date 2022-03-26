@@ -29,20 +29,21 @@ class NetworkManager {
     func GET(url: String, httpHeader: HTTPHeaderFields, complete: @escaping (Bool, Data?, NetworkError?) -> ()) {
         
         if !NetworkMonitor.shared.isReachable {
-            print("Error: internet is not working")
+           // print("Error: internet is not working")
             complete(false, nil, NetworkError.noNetwork)
             return
         }
-        guard var components = URLComponents(string: url) else {
-            print("Error: cannot create URLCompontents")
+        guard let components = URLComponents(string: url) else {
+           // print("Error: cannot create URLCompontents")
+            complete(false, nil, NetworkError.invalidURL)
+
             return
         }
-//        components.queryItems = params.map { key, value in
-//            URLQueryItem(name: key, value: value)
-//        }
 
         guard let url = components.url else {
-            print("Error: cannot create URL")
+           // print("Error: cannot create URL")
+            complete(false, nil, NetworkError.invalidURL)
+
             return
         }
         var request = URLRequest(url: url)
@@ -55,25 +56,20 @@ class NetworkManager {
             request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
         case .none: break
         }
-
         
         // .ephemeral prevent JSON from caching (They'll store in Ram and nothing on Disk)
         let config = URLSessionConfiguration.ephemeral
         let session = URLSession(configuration: config)
         session.dataTask(with: request) { data, response, error in
             guard error == nil else {
-                print("Error: problem calling GET")
-                print(error!)
                 complete(false, nil, NetworkError.unknown)
                 return
             }
             guard let data = data else {
-                print("Error: did not receive data")
                 complete(false, nil,NetworkError.responseError)
                 return
             }
             guard let response = response as? HTTPURLResponse, (200 ..< 300) ~= response.statusCode else {
-                print("Error: HTTP request failed")
                 complete(false, nil, NetworkError.unknown)
                 return
             }
@@ -89,19 +85,22 @@ enum NetworkError: Error {
     case invalidURL
     case responseError
     case unknown
+    case noError
 }
 
 extension NetworkError: LocalizedError {
     var errorDescription: String? {
         switch self {
         case .invalidURL:
-            return NSLocalizedString("Invalid URL", comment: "Invalid URL")
+            return "Invalid URL"
         case .responseError:
-            return NSLocalizedString("Unexpected status code", comment: "Invalid response")
+            return "Invalid response"
         case .unknown:
-            return NSLocalizedString("Unknown error", comment: "Unknown error")
+            return "Unknown error"
         case .noNetwork:
-            return NSLocalizedString("Please check your internet connection", comment: "Unknown error")
+            return "No internet connection"
+        case .noError:
+            return "No Error"
         }
     }
 }

@@ -19,7 +19,7 @@ struct NewsDict: Codable {
 }
 
 // MARK: - News
-struct News: Codable {
+struct News: Codable, Equatable {
     let author: String
     let title: String
     let date: String

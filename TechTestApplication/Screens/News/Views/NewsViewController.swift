@@ -8,6 +8,8 @@
 import Foundation
 import UIKit
 
+let navigationTitle = "News"
+
 class NewsViewController: UIViewController{
     
     @IBOutlet weak var tableView: UITableView!
@@ -25,23 +27,37 @@ class NewsViewController: UIViewController{
         initViewModel()
     }
     
-    func initView() {
+    fileprivate func setTableViewProperties() {
         tableView.delegate = self
         tableView.dataSource = self
-//        tableView.backgroundColor = UIColor(#colorLiteral(red: 0.6196078431, green: 0.1098039216, blue: 0.2509803922, alpha: 1))
         tableView.separatorColor = .white
         tableView.separatorStyle = .singleLine
         tableView.tableFooterView = UIView()
+        tableView.tableHeaderView = UIView()
         tableView.allowsSelection = false
-
         tableView.register(NewsCell.nib, forCellReuseIdentifier: NewsCell.identifier)
+    }
+    
+    func initView() {
+        setTableViewProperties()
         animator.startAnimating()
+        self.navigationItem.title = navigationTitle
     }
     
     func initViewModel() {
         viewModel.showAnimator = { [weak self] (showAnimator) in
             DispatchQueue.main.async {
                 showAnimator ? self?.animator.startAnimating():self?.animator.stopAnimating()
+            }
+        }
+        
+        // Show network error message
+        viewModel.showNetworkError = { [weak self](networkError) in
+            DispatchQueue.main.async {
+                guard let sourceVC = self else{return}
+                Alert.present(title: networkError.errorDescription, message: "", actions: .ok(handler: {
+                    print("ok button pressed")
+                }), from: sourceVC)
             }
         }
 
@@ -55,15 +71,6 @@ class NewsViewController: UIViewController{
             }
         }
         
-        // Show network error message
-        viewModel.showNetworkError = { [weak self](networkError) in
-            DispatchQueue.main.async {
-                guard let sourceVC = self else{return}
-                Alert.present(title: networkError.errorDescription, message: "", actions: .ok(handler: {
-                    print("ok button pressed")
-                }), from: sourceVC)
-            }
-        }
     }
     
     
