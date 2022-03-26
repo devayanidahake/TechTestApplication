@@ -17,6 +17,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         NetworkMonitor.shared.startMonitoring()
         return true
     }
+    
+    func applicationWillResignActive(_ application: UIApplication) {
+        NetworkMonitor.shared.stopMonitoring()
+    }
 
     // MARK: UISceneSession Lifecycle
 

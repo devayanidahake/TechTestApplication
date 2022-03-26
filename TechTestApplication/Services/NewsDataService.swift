@@ -11,18 +11,21 @@ protocol NewsDataServiceProtocol {
     
 }
 struct URLConstants {
-    static let newsURL = "https://inshortsapi.vercel.app/news?category=science"
+    static let baseURL = "https://inshortsapi.vercel.app"
 }
 
 class NewasDataService: NewsDataServiceProtocol {
     func getNewsFromServer(completion: @escaping (Bool, NewsArray?, APIError?) -> ()) {
+        let completeURL = URLConstants.baseURL + "/news?category=science"
         
-        NetworkManager.shared.apiGETMethod(url: URLConstants.newsURL, httpHeader: .application_json) { success, data, APIError in
+        NetworkManager.shared.apiGETMethod(url: completeURL, httpHeader: .application_json) { success, data, APIError in
             if success {
                 do {
                     let model = try JSONDecoder().decode(NewsDict.self, from: data!)
                     completion(true, model.newsArray, nil)
-                } catch {
+                }
+                catch
+                {
                     completion(false, nil, APIError)
                 }
             }

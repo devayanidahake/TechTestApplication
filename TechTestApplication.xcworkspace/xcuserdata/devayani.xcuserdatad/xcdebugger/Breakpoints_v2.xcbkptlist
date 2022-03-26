@@ -14,8 +14,8 @@
             filePath = "TechTestApplication/Helpers/NetworkManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "60"
-            endingLineNumber = "60"
+            startingLineNumber = "51"
+            endingLineNumber = "51"
             landmarkName = "apiGETMethod(url:httpHeader:complete:)"
             landmarkType = "7">
          </BreakpointContent>

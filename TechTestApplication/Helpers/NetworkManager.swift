@@ -43,15 +43,6 @@ class NetworkManager {
         
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
 
-        
-//        switch httpHeader {
-//        case .application_json:
-//            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-//        case .application_x_www_form_urlencoded:
-//            request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
-//        case .none: break
-//        }
-        
         // .ephemeral prevent JSON from caching (They'll store in Ram and nothing on Disk)
         let config = URLSessionConfiguration.ephemeral
         let session = URLSession(configuration: config)
