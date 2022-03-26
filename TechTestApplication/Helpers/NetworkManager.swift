@@ -23,7 +23,7 @@ class NetworkManager {
     
     private init() {}
     
-    func GET(url: String, httpHeader: HTTPHeaderFields, complete: @escaping (Bool, Data?, APIError?) -> ()) {
+    func apiGETMethod(url: String, httpHeader: HTTPHeaderFields, complete: @escaping (Bool, Data?, APIError?) -> ()) {
         
         if !NetworkMonitor.shared.isReachable {
             complete(false, nil, APIError.noNetwork)
@@ -41,13 +41,16 @@ class NetworkManager {
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         
-        switch httpHeader {
-        case .application_json:
-            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        case .application_x_www_form_urlencoded:
-            request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
-        case .none: break
-        }
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+
+        
+//        switch httpHeader {
+//        case .application_json:
+//            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+//        case .application_x_www_form_urlencoded:
+//            request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+//        case .none: break
+//        }
         
         // .ephemeral prevent JSON from caching (They'll store in Ram and nothing on Disk)
         let config = URLSessionConfiguration.ephemeral

@@ -23,14 +23,14 @@ class NewsAPIServiceTTest: XCTestCase {
             super.tearDown()
         }
 
-        func testGetNews() {
+        func testapiGETMethod() {
 
             // Given A apiservice
             let sut = self.sut!
 
             // When fetch popular photo
             let expect = XCTestExpectation(description: "callback")
-            sut.getNews { (success, news, error) in
+            sut.getNewsFromServer { (success, news, error) in
                 let newsArray = StubGenerator.stubNews()
                 expect.fulfill()
                 XCTAssertEqual( newsArray.count, 2)

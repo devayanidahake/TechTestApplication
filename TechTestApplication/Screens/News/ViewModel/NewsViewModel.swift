@@ -57,7 +57,7 @@ final class NewsViewModel : NewsViewModelProtocol{
     
     func getNewsArray() {
         self.isDataLoading = true
-        newsDataService.getNews { success, results, APIError in
+        newsDataService.getNewsFromServer { success, results, APIError in
             self.isDataLoading = false
             
             if let error = APIError {
