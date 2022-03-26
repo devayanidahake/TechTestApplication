@@ -19,6 +19,8 @@ protocol NewsViewModelProtocol: AnyObject {
 }
 
 final class NewsViewModel : NewsViewModelProtocol{
+    
+    //MARK: Properties
     var showAnimator: ((Bool) -> Void)?
     
     var reloadTableView: (() -> Void)?
@@ -26,9 +28,7 @@ final class NewsViewModel : NewsViewModelProtocol{
     var showAPIError: ((APIError) -> Void)?
     
     private var newsDataService: NewsDataServiceProtocol
-    
-    //MARK: Properties
-    
+        
     var newsArray = NewsArray()
     
     //Obeserved Properties
