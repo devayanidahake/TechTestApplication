@@ -8,9 +8,16 @@
 import Foundation
 import UIKit
 
-class NewsCell: UITableViewCell{
+class NewsCell: UITableViewCell {
     class var identifier: String { return String(describing: self) }
     class var nib: UINib { return UINib(nibName: identifier, bundle: nil) }
+    
+    var cellViewModel: NewsCellViewModel? {
+        didSet {
+            self.textLabel?.text = cellViewModel?.title ?? ""
+            self.detailTextLabel?.text = cellViewModel?.author ?? ""
+        }
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -25,6 +32,12 @@ class NewsCell: UITableViewCell{
         preservesSuperviewLayoutMargins = false
         separatorInset = UIEdgeInsets.zero
         layoutMargins = UIEdgeInsets.zero
+        
+        //Cell label properties
+        self.textLabel?.numberOfLines = 0
+        self.textLabel?.lineBreakMode = .byWordWrapping
+        self.detailTextLabel?.numberOfLines = 0
+        self.detailTextLabel?.lineBreakMode = .byWordWrapping
     }
     
     override func prepareForReuse() {

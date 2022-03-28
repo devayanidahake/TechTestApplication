@@ -10,13 +10,10 @@ protocol NewsDataServiceProtocol {
     func getNewsFromServer(completion: @escaping (_ success: Bool, _ results: NewsArray?, _ error: APIError?) -> ())
     
 }
-struct URLConstants {
-    static let baseURL = "https://inshortsapi.vercel.app"
-}
 
 class NewasDataService: NewsDataServiceProtocol {
     func getNewsFromServer(completion: @escaping (Bool, NewsArray?, APIError?) -> ()) {
-        let completeURL = URLConstants.baseURL + "/news?category=science"
+        let completeURL = Constants.URLs.baseURL + Constants.URLs.newsListEndpoints
         
         NetworkManager.shared.apiGETMethod(url: completeURL, httpHeader: .application_json) { success, data, APIError in
             if success {

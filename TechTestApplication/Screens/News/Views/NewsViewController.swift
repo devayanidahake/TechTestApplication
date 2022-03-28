@@ -8,7 +8,6 @@
 import Foundation
 import UIKit
 
-let navigationTitle = "News"
 
 class NewsViewController: UIViewController{
     
@@ -30,7 +29,7 @@ class NewsViewController: UIViewController{
     fileprivate func setTableViewProperties() {
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.separatorColor = .white
+        tableView.separatorColor = .lightGray
         tableView.separatorStyle = .singleLine
         tableView.tableFooterView = UIView()
         tableView.tableHeaderView = UIView()
@@ -41,7 +40,7 @@ class NewsViewController: UIViewController{
     fileprivate func initView() {
         setTableViewProperties()
         animator.startAnimating()
-        self.navigationItem.title = navigationTitle
+        self.navigationItem.title = Constants.Titles.newsListTitle
     }
     
     fileprivate func initViewModel() {
@@ -80,7 +79,12 @@ class NewsViewController: UIViewController{
 
 extension NewsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 90
+        return UITableView.automaticDimension
+    }
+    
+    
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        90 // approx
     }
 }
 
@@ -93,12 +97,9 @@ extension NewsViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: NewsCell.identifier, for: indexPath) as? NewsCell else { fatalError("xib does not exists") }
+        // cell  will be created with CellVM data
         let cellVM = viewModel.getCellViewModel(at: indexPath)
-        
-        cell.textLabel?.text = cellVM.title
-        cell.textLabel?.numberOfLines = 0
-        cell.textLabel?.lineBreakMode = .byWordWrapping
-        cell.detailTextLabel?.text = cellVM.author
+        cell.cellViewModel = cellVM
         return cell
     }
 }
