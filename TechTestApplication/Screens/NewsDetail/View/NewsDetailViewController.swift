@@ -40,10 +40,7 @@ class NewsDetailViewController: UIViewController{
     private func reloadWebView() {
         let url = URL(string: viewModel.newsURL)!
         webView.load(URLRequest(url: url))
-        
     }
-    
-    
 }
 
 extension NewsDetailViewController: WKNavigationDelegate {
@@ -53,6 +50,5 @@ extension NewsDetailViewController: WKNavigationDelegate {
     
     func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
         animator.stopAnimating()
-
     }
 }

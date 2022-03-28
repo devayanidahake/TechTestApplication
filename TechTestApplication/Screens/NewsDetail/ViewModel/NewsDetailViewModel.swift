@@ -9,7 +9,6 @@ import Foundation
 protocol NewsDetailViewModelProtocol: AnyObject {
     //Properties
     var newsURL: String { get }
-    
 }
 
 final class NewsDetailViewModel : NewsDetailViewModelProtocol {
@@ -21,12 +20,7 @@ final class NewsDetailViewModel : NewsDetailViewModelProtocol {
     
     var reloadWebView: (() -> Void)?
 
-    
     required init(newsURLvalue : String) {
         self.newsURL = newsURLvalue
     }
-    
-    
-    
-    
 }

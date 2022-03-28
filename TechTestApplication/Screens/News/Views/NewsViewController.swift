@@ -10,7 +10,7 @@ import UIKit
 
 
 class NewsViewController: UIViewController{
-    
+    //MARK: Properties
     @IBOutlet weak var tableView: UITableView!
     
     @IBOutlet weak var animator: UIActivityIndicatorView!
@@ -19,13 +19,13 @@ class NewsViewController: UIViewController{
         NewsViewModel()
     }() as NewsViewModelProtocol
     
-    
+    //MARK: Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         initView()
         initViewModel()
     }
-  
+    
     private func initView() {
         setTableViewProperties()
         animator.startAnimating()
@@ -43,14 +43,13 @@ class NewsViewController: UIViewController{
         tableView.register(NewsCell.nib, forCellReuseIdentifier: NewsCell.identifier)
     }
     
-    fileprivate func initViewModel() {
+    private func initViewModel() {
         viewModel.showAnimator = { [weak self] (showAnimator) in
             //TODO: Need to use async await for clean code
             DispatchQueue.main.async {
                 showAnimator ? self?.animator.startAnimating():self?.animator.stopAnimating()
             }
         }
-        
         // Show network error message
         viewModel.showAPIError = { [weak self](APIError) in
             DispatchQueue.main.async {
@@ -79,10 +78,7 @@ class NewsViewController: UIViewController{
             
             self?.navigationController?.pushViewController(detailVC, animated: true)
         }
-        
     }
-    
-    
 }
 // MARK: - UITableViewDelegate
 
@@ -93,10 +89,12 @@ extension NewsViewController: UITableViewDelegate {
     
     
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-        90 // approx
+        90 // estimated height
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let cell = tableView.cellForRow(at: indexPath)
+        cell?.setSelected(false, animated: true)
         self.viewModel.handleCellPressedAtIndex(index: indexPath.row)
     }
 }
