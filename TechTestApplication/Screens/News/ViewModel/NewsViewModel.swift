@@ -92,8 +92,9 @@ final class NewsViewModel : NewsViewModelProtocol{
         let newsAuthor = news.author
         let newsTitle = news.title
         let newsDate = news.date
+        let newsImgUrl = news.imageUrl
         
-        return NewsCellViewModel(author: newsAuthor, title: newsTitle, date: newsDate)
+        return NewsCellViewModel(author: newsAuthor, title: newsTitle, date: newsDate, imageUrl: newsImgUrl)
     }
     
     func getCellViewModel(at indexPath: IndexPath) -> NewsCellViewModel {
@@ -101,8 +102,7 @@ final class NewsViewModel : NewsViewModelProtocol{
     }
     
     func handleCellPressedAtIndex(index: Int){
-        if let rowNews = self.newsArray[index] as? News {
-            navigateToNewsDetailView?(rowNews.url)
-           }
+        let rowNews = self.newsArray[index]
+        navigateToNewsDetailView?(rowNews.url)
     }
 }

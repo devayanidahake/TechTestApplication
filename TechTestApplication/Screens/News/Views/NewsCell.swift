@@ -7,21 +7,37 @@
 
 import Foundation
 import UIKit
+import SDWebImage
 
 class NewsCell: UITableViewCell {
+    
+    @IBOutlet weak var title: UILabel!
+    
+    @IBOutlet weak var imageV: UIImageView!
+    
+    @IBOutlet weak var author: UILabel!
+    
     class var identifier: String { return String(describing: self) }
     class var nib: UINib { return UINib(nibName: identifier, bundle: nil) }
     
     var cellViewModel: NewsCellViewModel? {
         didSet {
-            self.textLabel?.text = cellViewModel?.title ?? ""
-            self.detailTextLabel?.text = cellViewModel?.author ?? ""
+            self.title.text = cellViewModel?.title ?? ""
+            self.author.text = cellViewModel?.author ?? ""
+            if let urlstring = cellViewModel?.imageUrl , let imageURL = URL.init(string: urlstring){
+                self.imageV.contentMode = .scaleAspectFill
+                self.imageV.sd_setImage(with: imageURL, placeholderImage: nil, options: .transformAnimatedImage, context: nil)
+            }
         }
     }
     
     override func awakeFromNib() {
         super.awakeFromNib()
         initView()
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
     }
     
     func initView() {
@@ -34,10 +50,11 @@ class NewsCell: UITableViewCell {
         layoutMargins = UIEdgeInsets.zero
         
         //Cell label properties
-        self.textLabel?.numberOfLines = 0
-        self.textLabel?.lineBreakMode = .byWordWrapping
-        self.detailTextLabel?.numberOfLines = 0
-        self.detailTextLabel?.lineBreakMode = .byWordWrapping
+        self.title.numberOfLines = 0
+        self.title.lineBreakMode = .byWordWrapping
+        self.author.numberOfLines = 0
+        self.author.lineBreakMode = .byWordWrapping
+        
     }
     
     override func prepareForReuse() {

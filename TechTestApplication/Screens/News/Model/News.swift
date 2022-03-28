@@ -24,11 +24,13 @@ struct News: Codable, Equatable {
     let title: String
     let date: String
     let url: String
+    let imageUrl: String
 
     enum CodingKeys: String, CodingKey {
         case author
         case title
         case date
         case url
+        case imageUrl
     }
 }
