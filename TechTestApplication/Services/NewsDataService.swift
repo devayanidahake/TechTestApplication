@@ -8,7 +8,7 @@
 import Foundation
 protocol NewsDataServiceProtocol {
     func getNewsFromServer(completion: @escaping (_ success: Bool, _ results: NewsArray?, _ error: APIError?) -> ())
-    
+    func getNewsFromServer() async throws -> NewsArray
 }
 
 class NewasDataService: NewsDataServiceProtocol {
@@ -31,6 +31,26 @@ class NewasDataService: NewsDataServiceProtocol {
             }
         }
     }
+    
+    func getNewsFromServer() async throws -> NewsArray
+    {
+        let completeURL = Constants.URLs.baseURL + Constants.URLs.newsListEndpoints
+        
+        do{
+            let responseData = try await NetworkManager.shared.apiGETMethod(url: completeURL)
+            let newsDict = try JSONDecoder().decode(NewsDict.self, from: responseData)
+            return newsDict.newsArray
+        }
+        catch let error as APIError
+        {
+            throw error
+        }
+        catch
+        {
+            throw APIError.unknown
+        }
+    }
+    
     
     
 }

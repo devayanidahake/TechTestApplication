@@ -63,24 +63,43 @@ final class NewsViewModel : NewsViewModelProtocol{
     
     func getNewsArray() {
         self.isDataLoading = true
-        newsDataService.getNewsFromServer { success, results, APIError in
-            self.isDataLoading = false
-            
-            if let error = APIError {
-                //ToDO:
-                self.serverError = error
-                return
+        Task{
+            do{
+                let newsResults = try await newsDataService.getNewsFromServer()
+                self.isDataLoading = false
+                self.parseDataIntoModelsFromServerData(news: newsResults)
             }
-            
-            if success, let newsResults = results {
-                self.fetchData(news: newsResults)
+            catch APIError.noNetwork
+            {
+                self.isDataLoading = false
+                self.serverError = APIError.noNetwork
+            }
+            catch
+            {
+                self.isDataLoading = false
+                self.serverError = APIError.unknown
             }
         }
+        
+//        newsDataService.getNewsFromServer { success, results, APIError in
+//            self.isDataLoading = false
+//
+//            if let error = APIError {
+//                //ToDO:
+//                self.serverError = error
+//                return
+//            }
+//
+//            if success, let newsResults = results {
+//                self.fetchData(news: newsResults)
+//            }
+//        }
     }
     
     
-    fileprivate func fetchData(news: NewsArray) {
+    private func parseDataIntoModelsFromServerData(news: NewsArray) {
         self.newsArray = news // To Do for unit testing
+        
         var cellModels = [NewsCellViewModel]()
         for newsObject in newsArray {
             cellModels.append(createCellModel(news: newsObject))
@@ -88,7 +107,7 @@ final class NewsViewModel : NewsViewModelProtocol{
         self.newsCellViewModels = cellModels
     }
     
-    fileprivate func createCellModel(news: News) -> NewsCellViewModel {
+    private    func createCellModel(news: News) -> NewsCellViewModel {
         let newsAuthor = news.author
         let newsTitle = news.title
         let newsDate = news.date

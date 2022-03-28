@@ -29,6 +29,12 @@ class NewsMockDataService: NewsDataServiceProtocol{
         completeClosure = completion
     }
     
+    func getNewsFromServer() async throws -> NewsArray {
+        isgetNewsCalled = true
+       //TODO: completeClosure = completion
+        return NewsArray()
+    }
+    
     enum APIResponse: Error {
         case successWithData
         case successWithoutData
