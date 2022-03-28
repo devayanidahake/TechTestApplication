@@ -87,9 +87,8 @@ extension NewsViewController: UITableViewDelegate {
         return UITableView.automaticDimension
     }
     
-    
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-        90 // estimated height
+        return Constants.Value.tableRowEstimatedHeight // estimated height
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

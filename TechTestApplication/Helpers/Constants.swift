@@ -21,4 +21,8 @@ struct Constants {
         static let main = "Main"
         static let newsDetailViewController = "NewsDetailViewController"
     }
+    
+    struct Value{
+        static let tableRowEstimatedHeight = 90.0
+    }
 }
