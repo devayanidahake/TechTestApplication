@@ -16,4 +16,9 @@ struct Constants {
         static let baseURL = "https://inshortsapi.vercel.app"
         static let newsListEndpoints = "/news?category=science"
     }
+    
+    struct StoryboardXIBNames{
+        static let main = "Main"
+        static let newsDetailViewController = "NewsDetailViewController"
+    }
 }

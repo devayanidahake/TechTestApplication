@@ -25,22 +25,22 @@ class NewsViewController: UIViewController{
         initView()
         initViewModel()
     }
+  
+    private func initView() {
+        setTableViewProperties()
+        animator.startAnimating()
+        self.navigationItem.title = Constants.Titles.newsListTitle
+    }
     
-    fileprivate func setTableViewProperties() {
+    private func setTableViewProperties() {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.separatorColor = .lightGray
         tableView.separatorStyle = .singleLine
         tableView.tableFooterView = UIView()
         tableView.tableHeaderView = UIView()
-        tableView.allowsSelection = false
+        tableView.allowsSelection = true
         tableView.register(NewsCell.nib, forCellReuseIdentifier: NewsCell.identifier)
-    }
-    
-    fileprivate func initView() {
-        setTableViewProperties()
-        animator.startAnimating()
-        self.navigationItem.title = Constants.Titles.newsListTitle
     }
     
     fileprivate func initViewModel() {
@@ -71,6 +71,15 @@ class NewsViewController: UIViewController{
             }
         }
         
+        // Navigate to detail screen
+        viewModel.navigateToNewsDetailView = { [weak self] (newsURL) in
+            
+            let detailVM = NewsDetailViewModel.init(newsURLvalue: newsURL)
+            let detailVC = NewsDetailViewController.create(model: detailVM)
+            
+            self?.navigationController?.pushViewController(detailVC, animated: true)
+        }
+        
     }
     
     
@@ -85,6 +94,10 @@ extension NewsViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         90 // approx
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.viewModel.handleCellPressedAtIndex(index: indexPath.row)
     }
 }
 

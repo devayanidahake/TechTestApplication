@@ -8,7 +8,7 @@
 import Foundation
 typealias NewsArray = [News]
 
-struct NewsDict: Codable {
+struct NewsDict: Codable{
     let category: String
     let newsArray: NewsArray
 
@@ -23,10 +23,12 @@ struct News: Codable, Equatable {
     let author: String
     let title: String
     let date: String
+    let url: String
 
     enum CodingKeys: String, CodingKey {
         case author
         case title
         case date
+        case url
     }
 }

@@ -11,14 +11,17 @@ protocol NewsViewModelProtocol: AnyObject {
     var reloadTableView: (() -> Void)? { get  set}
     var showAnimator: ((Bool) -> Void)? { get  set}
     var showAPIError: ((APIError) -> Void)? { get  set}
+    var navigateToNewsDetailView: ((String) -> Void)? { get  set}
     var newsArray: NewsArray { get }
-    var newsCellViewModels:[NewsCellViewModel] { get }
     
     func getNewsArray()
     func getCellViewModel(at indexPath: IndexPath) -> NewsCellViewModel
+    func handleCellPressedAtIndex(index: Int)
+    
 }
 
 final class NewsViewModel : NewsViewModelProtocol{
+    
     
     //MARK: Properties
     var showAnimator: ((Bool) -> Void)?
@@ -27,9 +30,12 @@ final class NewsViewModel : NewsViewModelProtocol{
     
     var showAPIError: ((APIError) -> Void)?
     
+    var navigateToNewsDetailView: ((String) -> Void)?
+    
     private var newsDataService: NewsDataServiceProtocol
     
     var newsArray = NewsArray()
+    
     
     //Obeserved Properties
     var isDataLoading: Bool = true {
@@ -92,5 +98,11 @@ final class NewsViewModel : NewsViewModelProtocol{
     
     func getCellViewModel(at indexPath: IndexPath) -> NewsCellViewModel {
         return newsCellViewModels[indexPath.row]
+    }
+    
+    func handleCellPressedAtIndex(index: Int){
+        if let rowNews = self.newsArray[index] as? News {
+            navigateToNewsDetailView?(rowNews.url)
+           }
     }
 }

@@ -65,6 +65,50 @@
             </objects>
             <point key="canvasLocation" x="18.840579710144929" y="97.767857142857139"/>
         </scene>
+        <!--News Detail View Controller-->
+        <scene sceneID="4P5-K6-lWU">
+            <objects>
+                <viewController storyboardIdentifier="NewsDetailViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="jfp-b0-twA" customClass="NewsDetailViewController" customModule="TechTestApplication" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="1Ob-7D-75h">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="N8V-97-vAc">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <wkWebViewConfiguration key="configuration">
+                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                                    <wkPreferences key="preferences"/>
+                                </wkWebViewConfiguration>
+                            </wkWebView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="Z5g-TP-aEF">
+                                <rect key="frame" x="187" y="433" width="40" height="40"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="40" id="7Rd-y0-3sN"/>
+                                    <constraint firstAttribute="width" secondItem="Z5g-TP-aEF" secondAttribute="height" multiplier="1:1" id="A60-7a-mRF"/>
+                                </constraints>
+                            </activityIndicatorView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="ADU-8e-123"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="Z5g-TP-aEF" firstAttribute="centerY" secondItem="ADU-8e-123" secondAttribute="centerY" id="HXM-LW-0r0"/>
+                            <constraint firstAttribute="trailing" secondItem="N8V-97-vAc" secondAttribute="trailing" id="O6I-PS-78R"/>
+                            <constraint firstItem="ADU-8e-123" firstAttribute="bottom" secondItem="N8V-97-vAc" secondAttribute="bottom" id="Sgz-xe-saX"/>
+                            <constraint firstItem="N8V-97-vAc" firstAttribute="leading" secondItem="ADU-8e-123" secondAttribute="leading" id="lfu-1O-qOZ"/>
+                            <constraint firstItem="Z5g-TP-aEF" firstAttribute="centerX" secondItem="ADU-8e-123" secondAttribute="centerX" id="wqu-Is-KXA"/>
+                            <constraint firstItem="N8V-97-vAc" firstAttribute="top" secondItem="ADU-8e-123" secondAttribute="top" id="ywN-md-NM2"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="animator" destination="Z5g-TP-aEF" id="qDB-lN-bZb"/>
+                        <outlet property="webView" destination="N8V-97-vAc" id="9my-WY-Lt5"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="KCp-2f-Vsb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="759.4202898550725" y="94.419642857142847"/>
+        </scene>
     </scenes>
     <resources>
         <systemColor name="systemBackgroundColor">
