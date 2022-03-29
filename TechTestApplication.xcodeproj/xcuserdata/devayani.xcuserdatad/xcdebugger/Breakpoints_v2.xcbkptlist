@@ -52,53 +52,5 @@
             landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "6659CEE1-9123-43AA-B7B8-A868FDE71BAB"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "TechTestApplicationTests/NewsViewModelTest.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "68"
-            endingLineNumber = "68"
-            landmarkName = "testLoadingWhenFetchingNewsFromServer()"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "6659CEE1-9123-43AA-B7B8-A868FDE71BAB - 2004759bea0fe37e"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "TechTestApplicationTests.NewsViewModelTest.testLoadingWhenFetchingNewsFromServer() -&gt; ()"
-                  moduleName = "TechTestApplicationTests"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/devayani/Documents/Learning/TechTestApplication/TechTestApplicationTests/NewsViewModelTest.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "68"
-                  endingLineNumber = "68"
-                  offsetFromSymbolStart = "932">
-               </Location>
-               <Location
-                  uuid = "6659CEE1-9123-43AA-B7B8-A868FDE71BAB - 2004759bea0fe37e"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "TechTestApplicationTests.NewsViewModelTest.testLoadingWhenFetchingNewsFromServer() -&gt; ()"
-                  moduleName = "TechTestApplicationTests"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/devayani/Documents/Learning/TechTestApplication/TechTestApplicationTests/NewsViewModelTest.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "68"
-                  endingLineNumber = "68"
-                  offsetFromSymbolStart = "789">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

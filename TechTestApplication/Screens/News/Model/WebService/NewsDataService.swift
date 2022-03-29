@@ -22,12 +22,13 @@ enum NewsApi {
 }
 }
 
+
+
 protocol NewsDataServiceProtocol {
     func getNewsData(api: NewsApi) async throws -> NewsArray
 }
 
 class NewsDataService: NewsDataServiceProtocol {
-    
     
     func getNewsData(api: NewsApi) async throws -> NewsArray
     {
