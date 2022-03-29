@@ -20,7 +20,7 @@ class NewsMockDataService: NewsDataServiceProtocol{
 class StubGenerator {
     
     static func stubNews() throws -> [News] {
-        let path = Bundle.main.path(forResource: "NewsContent", ofType: "json")!
+        let path = Bundle.main.path(forResource: "NewsData", ofType: "json")!
         let data = try! Data(contentsOf: URL(fileURLWithPath: path))
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .iso8601

@@ -70,7 +70,7 @@ class NewsAPIServiceTest: XCTestCase {
         let expect = XCTestExpectation(description: "return data after success")
         do{
         _ = try await sut.getNewsFromServer()
-            newsArray = StubGenerator.stubNews()
+            newsArray = try StubGenerator.stubNews()
             expect.fulfill()
         }
         catch{

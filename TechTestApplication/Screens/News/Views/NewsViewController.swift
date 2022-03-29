@@ -16,7 +16,7 @@ class NewsViewController: UIViewController{
     @IBOutlet weak var animator: UIActivityIndicatorView!
     
     lazy var viewModel: NewsViewModelProtocol = {
-        NewsViewModel.init(newsDataService: NewsMockDataService())
+        NewsViewModel.init(newsDataService: NewsDataService())
     }() as NewsViewModelProtocol
     
     //MARK: Methods

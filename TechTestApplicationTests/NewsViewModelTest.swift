@@ -37,7 +37,7 @@ class NewsViewModelTest: XCTestCase {
             XCTAssertNotNil(newsobj.author)
         }
     }
-    
+   /*
     func testGetNewsArrayFunctionForErrorResponse() {
         
         // Given a failed fetch with a certain failure
