@@ -23,22 +23,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "BD5C3E91-692E-4FCA-B5B4-CE518F31363A"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "TechTestApplicationTests/NewsViewModelTest.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "17"
-            endingLineNumber = "17"
-            landmarkName = "setUpWithError()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "4415BC5C-A539-4877-B645-A420CE297F55"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
@@ -55,49 +39,33 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "1F9BD20A-37E0-4258-8A67-CC4C984EB11B"
-            shouldBeEnabled = "Yes"
+            uuid = "1AD37152-8FAE-4D06-88A4-11AAE328EFCE"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "TechTestApplicationTests/NewsViewModelTest.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "34"
-            endingLineNumber = "34"
-            landmarkName = "testGetNewsArrayFunctionForSuccessResponse()"
+            startingLineNumber = "61"
+            endingLineNumber = "61"
+            landmarkName = "testGetNewsArrayFunctionForErrorResponse()"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "1F9BD20A-37E0-4258-8A67-CC4C984EB11B - fcf8bcea59722ef"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "TechTestApplicationTests.NewsViewModelTest.testGetNewsArrayFunctionForSuccessResponse() -&gt; ()"
-                  moduleName = "TechTestApplicationTests"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/devayani/Documents/Learning/TechTestApplication/TechTestApplicationTests/NewsViewModelTest.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "35"
-                  endingLineNumber = "35"
-                  offsetFromSymbolStart = "256">
-               </Location>
-               <Location
-                  uuid = "1F9BD20A-37E0-4258-8A67-CC4C984EB11B - fcf8bcea59722ef"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "TechTestApplicationTests.NewsViewModelTest.testGetNewsArrayFunctionForSuccessResponse() -&gt; ()"
-                  moduleName = "TechTestApplicationTests"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/devayani/Documents/Learning/TechTestApplication/TechTestApplicationTests/NewsViewModelTest.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "35"
-                  endingLineNumber = "35"
-                  offsetFromSymbolStart = "309">
-               </Location>
-            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "7799D69E-83BF-43F8-B98A-320DF04D5CE5"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TechTestApplicationTests/NewsViewModelTest.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "68"
+            endingLineNumber = "68"
+            landmarkName = "testGetNewsArrayFunctionForErrorResponse()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

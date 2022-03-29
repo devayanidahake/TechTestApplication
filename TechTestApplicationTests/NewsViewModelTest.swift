@@ -27,9 +27,15 @@ class NewsViewModelTest: XCTestCase {
     func testGetNewsArrayFunctionForSuccessResponse() {
         
         // Given
+        let expect = expectation(description: "API success")
         
         // When
-        sut.getNewsArray()
+        Task{
+            await self.sut.getNewsArray()
+            expect.fulfill()
+        }
+        
+         waitForExpectations(timeout: 5)
                 
         // Sut should display predefined news count
         XCTAssertEqual(sut.newsArray.count,2)
@@ -37,24 +43,41 @@ class NewsViewModelTest: XCTestCase {
             XCTAssertNotNil(newsobj.author)
         }
     }
-   /*
+    
+   
     func testGetNewsArrayFunctionForErrorResponse() {
         
-        // Given a failed fetch with a certain failure
-        let error = APIError.responseError
-        sut.serverError = error
+        // Given
+        let expect = expectation(description: "API failure")
+        var thrownError: Error?
+        let errorHandler = { thrownError = $0 }
         
         // When
-        sut.getNewsArray()
+        Task{
+            //do {
+                await self.sut.getNewsArray
+//            }
+//            catch{
+//                errorHandler(error)
+//            }
+            expect.fulfill()
+        }
         
-       // mockAPIService.fetchFail(error: error )
+         waitForExpectations(timeout: 5)
+        
+        XCTAssertNotNil(sut.serverError)
+                
+        // Sut should display predefined news count
+//        if let error = thrownError {
+////                    XCTFail(
+////                        "Async error thrown: \(error)"
+////                    )
+//                }
         
         
-        // Sut should display predefined error message
-        XCTAssertEqual(sut.serverError, error)
         
     }
-    
+   /*
     func testLoadingWhenFetchingNewsFromServer() {
         
         //Given

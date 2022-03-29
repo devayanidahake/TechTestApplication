@@ -14,7 +14,7 @@ protocol NewsViewModelProtocol: AnyObject {
     var navigateToNewsDetailView: ((String) -> Void)? { get  set}
     var newsArray: NewsArray { get }
     
-    func getNewsArray()
+    func getNewsArray() async
     func getCellViewModel(at indexPath: IndexPath) -> NewsCellViewModel
     func handleCellPressedAtIndex(index: Int)
     
@@ -65,11 +65,10 @@ final class NewsViewModel : NewsViewModelProtocol{
         self.newsDataService = newsDataService
     }
     
-    func getNewsArray() {
+    func getNewsArray() async {
         self.isDataLoading = true
-        Task{
             do{
-                 let newsResults = try await newsDataService.getNewsFromServer()
+                let newsResults = try await newsDataService.getNewsData(api: .list)
                     self.isDataLoading = false
                     self.newsArray = newsResults
                     self.createNewsCellModels()
@@ -79,7 +78,6 @@ final class NewsViewModel : NewsViewModelProtocol{
                 self.isDataLoading = false
                 self.serverError = error
             }
-        }
     }
     
     

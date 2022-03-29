@@ -61,7 +61,9 @@ class NewsViewController: UIViewController{
         }
         
         // Get news data
-        viewModel.getNewsArray()
+        Task{
+            await self.viewModel.getNewsArray()
+        }
         
         // Reload TableView closure
         viewModel.reloadTableView = { [weak self] in
