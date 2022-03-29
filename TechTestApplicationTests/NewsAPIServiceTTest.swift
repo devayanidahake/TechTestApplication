@@ -8,7 +8,7 @@
 import XCTest
 @testable import TechTestApplication
 
-class NewsAPIServiceTTest: XCTestCase {
+class NewsAPIServiceTest: XCTestCase {
     
     
     var sut: NewasDataService?
@@ -58,6 +58,52 @@ class NewsAPIServiceTTest: XCTestCase {
             XCTAssertNotNil(error)
         }
         wait(for: [expect], timeout: 3)
+    }
+    
+    func testGetNewsFromServerForSuccessData() async {
+        
+        // Given A apiservice
+        let sut = self.sut!
+        var newsArray = NewsArray()
+        
+        // When fetch popular photo
+        let expect = XCTestExpectation(description: "return data after success")
+        do{
+        _ = try await sut.getNewsFromServer()
+            newsArray = StubGenerator.stubNews()
+            expect.fulfill()
+        }
+        catch{
+            
+        }
+        XCTAssertEqual( newsArray.count, 2)
+        for newsobj in newsArray {
+            XCTAssertNotNil(newsobj.author)
+        }
+        
+       // await waitForExpectations(timeout: 3)
+
+    }
+    
+    func testGetNewsFromServerWhenResponseIsFailed() async {
+        
+        // Given A apiservice
+        let sut = self.sut!
+        
+        // When fetch popular photo
+        let expect = XCTestExpectation(description: "return error after failure")
+        do{
+        _ = try await sut.getNewsFromServer()
+            let newsArray: NewsArray? = nil
+            let error = APIError.responseError
+            expect.fulfill()
+            
+            XCTAssertEqual(newsArray, nil)
+            XCTAssertNotNil(error)
+        }
+        catch{
+            
+        }
     }
     
     

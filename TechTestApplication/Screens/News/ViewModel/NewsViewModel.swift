@@ -65,14 +65,15 @@ final class NewsViewModel : NewsViewModelProtocol{
         self.isDataLoading = true
         Task{
             do{
-                let newsResults = try await newsDataService.getNewsFromServer()
-                self.isDataLoading = false
-                self.parseDataIntoModelsFromServerData(news: newsResults)
+                if let newsResults = try await newsDataService.getNewsFromServer(){
+                    self.isDataLoading = false
+                    self.parseDataIntoModelsFromServerData(news: newsResults)
+                }
             }
-            catch APIError.noNetwork
+            catch let error as APIError
             {
                 self.isDataLoading = false
-                self.serverError = APIError.noNetwork
+                self.serverError = error
             }
             catch
             {
@@ -80,20 +81,6 @@ final class NewsViewModel : NewsViewModelProtocol{
                 self.serverError = APIError.unknown
             }
         }
-        
-//        newsDataService.getNewsFromServer { success, results, APIError in
-//            self.isDataLoading = false
-//
-//            if let error = APIError {
-//                //ToDO:
-//                self.serverError = error
-//                return
-//            }
-//
-//            if success, let newsResults = results {
-//                self.fetchData(news: newsResults)
-//            }
-//        }
     }
     
     

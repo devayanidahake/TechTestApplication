@@ -12,34 +12,23 @@ class NewsMockDataService: NewsDataServiceProtocol{
     
     var isgetNewsCalled = false
     
-    var completeNews: [News] = [News]()
-    var completeClosure: ((Bool, [News], APIError?) -> ())!
+    var serverResponseNews: [News] = [News]()
     
+    var serverError: APIError = .noError
     
     func fetchSuccess() {
-        completeClosure( true, completeNews, nil )
+        serverResponseNews = StubGenerator.stubNews()
     }
     
     func fetchFail(error: APIError?) {
-        completeClosure( false, completeNews, error )
+        serverError = error ?? .noError
     }
     
-    func getNewsFromServer(completion: @escaping (Bool, NewsArray?, APIError?) -> ()) {
-        isgetNewsCalled = true
-        completeClosure = completion
-    }
-    
-    func getNewsFromServer() async throws -> NewsArray {
+    func getNewsFromServer() async throws -> NewsArray? {
         isgetNewsCalled = true
        //TODO: completeClosure = completion
-        return NewsArray()
-    }
-    
-    enum APIResponse: Error {
-        case successWithData
-        case successWithoutData
-        case failure
         
+        return serverResponseNews
     }
 }
 

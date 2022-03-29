@@ -6,6 +6,7 @@
 //
 
 import Foundation
+
 enum HTTPHeaderFields {
     case application_json
     case application_x_www_form_urlencoded
@@ -24,6 +25,7 @@ class NetworkManager {
     private init() {}
     
     func apiGETMethod(url: String) async throws -> Data {
+        
         if !NetworkMonitor.shared.isReachable {
             throw APIError.noNetwork
         }

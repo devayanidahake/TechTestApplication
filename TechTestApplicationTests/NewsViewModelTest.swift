@@ -9,8 +9,9 @@ import XCTest
 @testable import TechTestApplication
 
 class NewsViewModelTest: XCTestCase {
-    var mockAPIService: NewsMockDataService!
-    var sut: NewsViewModel!
+    var mockAPIService: NewsMockDataService! //= NewsMockDataService()
+    
+    var sut: NewsViewModel! 
     
     override func setUp() {
         super.setUp()
@@ -26,30 +27,49 @@ class NewsViewModelTest: XCTestCase {
     
     
     
-    func testGetNews() {
+    func testGetNewsArrayFunctionIsGettingCalled() {
         // Given
-        mockAPIService.completeNews = [News]()
+        mockAPIService.serverResponseNews = [News]()
         
         // When
         sut.getNewsArray()
         
         // Assert
-        XCTAssert(mockAPIService!.isgetNewsCalled)
+        XCTAssertTrue(mockAPIService!.isgetNewsCalled)
     }
     
+    func testGetNewsArrayFunctionForSuccessResponse() {
+        
+        // Given
+        mockAPIService.serverResponseNews = [News]()
+        
+        // When
+        sut.getNewsArray()
+        
+        mockAPIService.fetchSuccess()
+        sut.newsArray = mockAPIService.serverResponseNews
+        
+        // Sut should display predefined news count
+        XCTAssertEqual( sut.newsArray.count, 2)
+        for newsobj in sut.newsArray {
+            XCTAssertNotNil(newsobj.author)
+        }
+    }
     
-    func testGetNewsFail() {
+    func testGetNewsArrayFunctionForErrorResponse() {
         
         // Given a failed fetch with a certain failure
         let error = APIError.responseError
+        sut.serverError = error
         
         // When
         sut.getNewsArray()
         
         mockAPIService.fetchFail(error: error )
         
+        
         // Sut should display predefined error message
-        XCTAssertEqual( sut.serverError, error )
+        XCTAssertEqual(sut.serverError, error)
         
     }
     
@@ -82,14 +102,13 @@ class NewsViewModelTest: XCTestCase {
     func testCreateNewsCellViewModel() {
         // Given
         let news = StubGenerator.stubNews()
-        mockAPIService.completeNews = news
+        mockAPIService.serverResponseNews = news
         let expect = XCTestExpectation(description: "reload closure triggered")
         sut.reloadTableView = { () in
             expect.fulfill()
         }
         
         // When
-        
         sut.getNewsArray()
         mockAPIService.fetchSuccess()
         
@@ -103,8 +122,7 @@ class NewsViewModelTest: XCTestCase {
     
     func testShowErrorWhenNoNetwork() {
         // Given
-        sut.serverError = .noNetwork
-        let expect = XCTestExpectation(description: "rno network alert is shown")
+        let expect = XCTestExpectation(description: "no network alert is shown")
         sut.showAPIError = { (error) in
             expect.fulfill()
         }
@@ -112,13 +130,17 @@ class NewsViewModelTest: XCTestCase {
         // When
         sut.getNewsArray()
         mockAPIService.fetchFail(error: .noNetwork)
+        sut.serverError = mockAPIService.serverError
         
         // Server Error
         XCTAssertEqual( sut.serverError, APIError.noNetwork )
         
         // XCTAssert reload closure triggered
-        wait(for: [expect], timeout: 1.0)
+        wait(for: [expect], timeout: 3.0)
         
     }
+    
+    
+    
     
 }
