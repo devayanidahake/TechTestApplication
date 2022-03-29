@@ -10,35 +10,26 @@ import Foundation
 
 class NewsMockDataService: NewsDataServiceProtocol{
     
-    var isgetNewsCalled = false
-    
-    var serverResponseNews: [News] = [News]()
-    
-    var serverError: APIError = .noError
-    
-    func fetchSuccess() {
-        serverResponseNews = StubGenerator.stubNews()
+    func getNewsFromServer() async throws -> NewsArray {
+        let newsArray = try StubGenerator.stubNews()
+        return newsArray
     }
-    
-    func fetchFail(error: APIError?) {
-        serverError = error ?? .noError
-    }
-    
-    func getNewsFromServer() async throws -> NewsArray? {
-        isgetNewsCalled = true
-       //TODO: completeClosure = completion
-        
-        return serverResponseNews
-    }
+   
 }
 
 class StubGenerator {
-    static func stubNews() -> [News] {
+    
+    static func stubNews() throws -> [News] {
         let path = Bundle.main.path(forResource: "NewsContent", ofType: "json")!
         let data = try! Data(contentsOf: URL(fileURLWithPath: path))
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .iso8601
-        let newsDict = try! decoder.decode(NewsDict.self, from: data)
+        do{
+        let newsDict = try decoder.decode(NewsDict.self, from: data)
         return newsDict.newsArray
+        }
+        catch{
+            throw APIError.unknown
+        }
     }
 }

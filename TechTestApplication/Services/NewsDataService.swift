@@ -8,11 +8,12 @@
 import Foundation
 
 protocol NewsDataServiceProtocol {
-    func getNewsFromServer() async throws -> NewsArray?
+    func getNewsFromServer() async throws -> NewsArray
 }
 
-class NewasDataService: NewsDataServiceProtocol {
-    func getNewsFromServer() async throws -> NewsArray?
+class NewsDataService: NewsDataServiceProtocol {
+    
+    func getNewsFromServer() async throws -> NewsArray
     {
         let completeURL = Constants.URLs.baseURL + Constants.URLs.newsListEndpoints
         
@@ -21,13 +22,10 @@ class NewasDataService: NewsDataServiceProtocol {
             let newsDict = try JSONDecoder().decode(NewsDict.self, from: responseData)
             return newsDict.newsArray
         }
-        catch let error as APIError
+        catch
         {
             throw error
         }
-        catch
-        {
-            throw APIError.unknown
-        }
+        
     }
 }

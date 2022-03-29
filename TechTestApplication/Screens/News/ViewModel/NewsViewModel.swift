@@ -10,7 +10,7 @@ import Foundation
 protocol NewsViewModelProtocol: AnyObject {
     var reloadTableView: (() -> Void)? { get  set}
     var showAnimator: ((Bool) -> Void)? { get  set}
-    var showAPIError: ((APIError) -> Void)? { get  set}
+    var showAPIError: ((Error) -> Void)? { get  set}
     var navigateToNewsDetailView: ((String) -> Void)? { get  set}
     var newsArray: NewsArray { get }
     
@@ -23,12 +23,13 @@ protocol NewsViewModelProtocol: AnyObject {
 final class NewsViewModel : NewsViewModelProtocol{
     
     
+    
     //MARK: Properties
     var showAnimator: ((Bool) -> Void)?
     
     var reloadTableView: (() -> Void)?
     
-    var showAPIError: ((APIError) -> Void)?
+    var showAPIError: ((Error) -> Void)?
     
     var navigateToNewsDetailView: ((String) -> Void)?
     
@@ -50,14 +51,17 @@ final class NewsViewModel : NewsViewModelProtocol{
         }
     }
     
-    var serverError: APIError = .noError {
+    var serverError: Error? {
         didSet{
+            guard let serverError = serverError else {
+                return
+            }
             showAPIError?(serverError)
         }
     }
     
     //MARK: Methods
-    init(newsDataService: NewsDataServiceProtocol = NewasDataService()) {
+    init(newsDataService: NewsDataServiceProtocol) {
         self.newsDataService = newsDataService
     }
     
@@ -65,36 +69,29 @@ final class NewsViewModel : NewsViewModelProtocol{
         self.isDataLoading = true
         Task{
             do{
-                if let newsResults = try await newsDataService.getNewsFromServer(){
+                 let newsResults = try await newsDataService.getNewsFromServer()
                     self.isDataLoading = false
-                    self.parseDataIntoModelsFromServerData(news: newsResults)
-                }
-            }
-            catch let error as APIError
-            {
-                self.isDataLoading = false
-                self.serverError = error
+                    self.newsArray = newsResults
+                    self.createNewsCellModels()
             }
             catch
             {
                 self.isDataLoading = false
-                self.serverError = APIError.unknown
+                self.serverError = error
             }
         }
     }
     
     
-    private func parseDataIntoModelsFromServerData(news: NewsArray) {
-        self.newsArray = news // To Do for unit testing
-        
+    private func createNewsCellModels() {
         var cellModels = [NewsCellViewModel]()
-        for newsObject in newsArray {
+        for newsObject in self.newsArray {
             cellModels.append(createCellModel(news: newsObject))
         }
         self.newsCellViewModels = cellModels
     }
     
-    private    func createCellModel(news: News) -> NewsCellViewModel {
+    private func createCellModel(news: News) -> NewsCellViewModel {
         let newsAuthor = news.author
         let newsTitle = news.title
         let newsDate = news.date

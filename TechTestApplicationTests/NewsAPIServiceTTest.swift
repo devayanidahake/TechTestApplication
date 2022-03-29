@@ -11,54 +11,54 @@ import XCTest
 class NewsAPIServiceTest: XCTestCase {
     
     
-    var sut: NewasDataService?
+    var sut: NewsDataService?
     
-    override func setUp() {
+    override func setUpWithError() throws {
         super.setUp()
-        sut = NewasDataService()
+        sut = NewsDataService()
     }
     
-    override func tearDown() {
+    override func tearDownWithError() throws {
         sut = nil
         super.tearDown()
     }
     
-    func testapiGETMethod() {
-        
-        // Given A apiservice
-        let sut = self.sut!
-        
-        // When fetch popular photo
-        let expect = XCTestExpectation(description: "callback")
-        sut.getNewsFromServer { (success, news, error) in
-            let newsArray = StubGenerator.stubNews()
-            expect.fulfill()
-            XCTAssertEqual( newsArray.count, 2)
-            for newsobj in newsArray {
-                XCTAssertNotNil(newsobj.author)
-            }
-        }
-        wait(for: [expect], timeout: 5)
-    }
-    
-    func testapiGETMethodForFailure() {
-        
-        // Given A apiservice
-        let sut = self.sut!
-        
-        // When fetch popular photo
-        let expect = XCTestExpectation(description: "callback")
-        sut.getNewsFromServer { (success, news, error) in
-            //THEN
-            let newsArray: NewsArray? = nil
-            let error = APIError.responseError
-            expect.fulfill()
-            
-            XCTAssertEqual(newsArray, nil)
-            XCTAssertNotNil(error)
-        }
-        wait(for: [expect], timeout: 3)
-    }
+//    func testapiGETMethod() {
+//
+//        // Given A apiservice
+//        let sut = self.sut!
+//
+//        // When fetch popular photo
+//        let expect = XCTestExpectation(description: "callback")
+//        sut.getNewsFromServer { (success, news, error) in
+//            let newsArray = StubGenerator.stubNews()
+//            expect.fulfill()
+//            XCTAssertEqual( newsArray.count, 2)
+//            for newsobj in newsArray {
+//                XCTAssertNotNil(newsobj.author)
+//            }
+//        }
+//        wait(for: [expect], timeout: 5)
+//    }
+//
+//    func testapiGETMethodForFailure() {
+//
+//        // Given A apiservice
+//        let sut = self.sut!
+//
+//        // When fetch popular photo
+//        let expect = XCTestExpectation(description: "callback")
+//        sut.getNewsFromServer { (success, news, error) in
+//            //THEN
+//            let newsArray: NewsArray? = nil
+//            let error = APIError.responseError
+//            expect.fulfill()
+//
+//            XCTAssertEqual(newsArray, nil)
+//            XCTAssertNotNil(error)
+//        }
+//        wait(for: [expect], timeout: 3)
+//    }
     
     func testGetNewsFromServerForSuccessData() async {
         
@@ -81,7 +81,7 @@ class NewsAPIServiceTest: XCTestCase {
             XCTAssertNotNil(newsobj.author)
         }
         
-       // await waitForExpectations(timeout: 3)
+        await waitForExpectations(timeout: 3)
 
     }
     
@@ -94,11 +94,9 @@ class NewsAPIServiceTest: XCTestCase {
         let expect = XCTestExpectation(description: "return error after failure")
         do{
         _ = try await sut.getNewsFromServer()
-            let newsArray: NewsArray? = nil
             let error = APIError.responseError
             expect.fulfill()
             
-            XCTAssertEqual(newsArray, nil)
             XCTAssertNotNil(error)
         }
         catch{

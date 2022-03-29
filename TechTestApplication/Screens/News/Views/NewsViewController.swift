@@ -16,7 +16,7 @@ class NewsViewController: UIViewController{
     @IBOutlet weak var animator: UIActivityIndicatorView!
     
     lazy var viewModel: NewsViewModelProtocol = {
-        NewsViewModel()
+        NewsViewModel.init(newsDataService: NewsMockDataService())
     }() as NewsViewModelProtocol
     
     //MARK: Methods
@@ -50,11 +50,12 @@ class NewsViewController: UIViewController{
                 showAnimator ? self?.animator.startAnimating():self?.animator.stopAnimating()
             }
         }
+        
         // Show network error message
-        viewModel.showAPIError = { [weak self](APIError) in
+        viewModel.showAPIError = { [weak self] error in
             DispatchQueue.main.async {
                 guard let sourceVC = self else{return}
-                Alert.present(title: APIError.errorDescription, message: "", actions: .ok(handler: {
+                Alert.present(title: error.localizedDescription, message: "", actions: .ok(handler: {
                 }), from: sourceVC)
             }
         }

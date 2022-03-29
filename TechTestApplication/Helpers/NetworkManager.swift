@@ -48,6 +48,10 @@ class NetworkManager {
         
         do {
             let (dataObj, response) = try await session.data(for: request, delegate: nil)
+            guard (response as? HTTPURLResponse)?.statusCode == 200 else {
+                throw APIError.responseError
+            }
+           
            return dataObj
         }catch{
             throw APIError.unknown
