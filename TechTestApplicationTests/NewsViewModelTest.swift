@@ -50,10 +50,8 @@ class NewsViewModelTest: XCTestCase {
         //Given
         let expect = XCTestExpectation(description: "Loading status updated")
         
-        sut.showAnimator = { (showAnimator) in
-            expect.fulfill()
-            
-            
+        sut.shouldShowAnimator = { (showAnimator) in
+            expect.fulfill()            
         }
         //when fetching
         Task{

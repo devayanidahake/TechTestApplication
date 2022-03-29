@@ -9,7 +9,7 @@ import Foundation
 
 protocol NewsViewModelProtocol: AnyObject {
     var reloadTableView: (() -> Void)? { get  set}
-    var showAnimator: ((Bool) -> Void)? { get  set}
+    var shouldShowAnimator: ((Bool) -> Void)? { get  set}
     var showAPIError: ((Error) -> Void)? { get  set}
     var navigateToNewsDetailView: ((String) -> Void)? { get  set}
     var newsArray: NewsArray { get }
@@ -23,7 +23,7 @@ protocol NewsViewModelProtocol: AnyObject {
 final class NewsViewModel : NewsViewModelProtocol {
     
     //MARK: Properties
-    var showAnimator: ((Bool) -> Void)?
+    var shouldShowAnimator: ((Bool) -> Void)?
     
     var reloadTableView: (() -> Void)?
     
@@ -39,7 +39,7 @@ final class NewsViewModel : NewsViewModelProtocol {
     //Obeserved Properties
     var isDataLoading: Bool = true {
         didSet{
-            showAnimator?(isDataLoading)
+            shouldShowAnimator?(isDataLoading)
         }
     }
     

@@ -43,38 +43,60 @@ class NewsViewController: BaseViewController{
         tableView.register(NewsCell.nib, forCellReuseIdentifier: NewsCell.identifier)
     }
     
+    
     private func configureViewModel() {
         
-        // Get news data from VM
-        Task{
-            await self.viewModel.getNewsArray()
-        }
+        fetchNewsFeed()
         
         //All callbacks from view models
+        handleDataLoader()
+        
+        handleErrorNotification()
+        
+        handleTableviewRefreshActivity()
+        
+        handleNavigationToDetailScreen()
+    }
+}
+
+extension NewsViewController{
+    private func fetchNewsFeed() {
+        // Get news data from VM
+        Task{[weak self] in
+            await self?.viewModel.getNewsArray()
+        }
+    }
+    
+    private func handleDataLoader() {
         // Show loader till list appears
-        viewModel.showAnimator = { [weak self] (showAnimator) in
-            //TODO: Need to use async await for clean code
-            DispatchQueue.main.async {
-                showAnimator ? self?.animator.startAnimating():self?.animator.stopAnimating()
+        viewModel.shouldShowAnimator = { [weak self] (showLoader) in
+            Task{[weak self] in
+                self?.showDataLoader(show: showLoader)
             }
         }
-        
+    }
+  
+    private func handleErrorNotification() {
         // Show network error message
         viewModel.showAPIError = { [weak self] error in
-            DispatchQueue.main.async {
+            Task{[weak self] in
                 guard let sourceVC = self else{return}
-                Alert.present(title: error.localizedDescription, message: "", actions: .ok(handler: {
-                }), from: sourceVC)
+                
+                self?.showApplicationAlert(sourceVC, alertTitle: error.localizedDescription)
             }
         }
-
+    }
+    
+    private func handleTableviewRefreshActivity() {
         // Reload TableView closure
         viewModel.reloadTableView = { [weak self] in
-            DispatchQueue.main.async {
-                self?.tableView.reloadData()
+            Task{[weak self] in
+                self?.reloadTableView()
             }
         }
-        
+    }
+    
+    private func handleNavigationToDetailScreen() {
         // Navigate to detail screen
         viewModel.navigateToNewsDetailView = { [weak self] (newsURL) in
             
@@ -84,6 +106,29 @@ class NewsViewController: BaseViewController{
             self?.navigationController?.pushViewController(detailVC, animated: true)
         }
     }
+    
+    //MARK: UI update operations done using Mainactor on main thread
+    @MainActor
+    private func reloadTableView() {
+        self.tableView.reloadData()
+    }
+    
+    @MainActor
+    private func showDataLoader(show: Bool) {
+        if(show){
+            self.animator.startAnimating()
+        }
+        else{
+            self.animator.stopAnimating()
+        }
+    }
+    
+    @MainActor
+    private func showApplicationAlert(_ sourceVC: NewsViewController, alertTitle: String) {
+        Alert.present(title: alertTitle, message: "", actions: .ok(handler: {
+        }), from: sourceVC)
+    }
+    
 }
 // MARK: - UITableViewDelegate
 
