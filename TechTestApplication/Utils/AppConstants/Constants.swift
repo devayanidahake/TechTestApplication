@@ -35,4 +35,8 @@ struct Constants {
         static let noError = "No Error"
 
     }
+    
+    struct Image {
+        static let placeholderImage = "placeholderImage.png"
+    }
 }

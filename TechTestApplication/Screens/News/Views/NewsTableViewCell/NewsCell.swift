@@ -19,6 +19,7 @@ class NewsCell: UITableViewCell {
     @IBOutlet weak var author: UILabel!
     
     class var identifier: String { return String(describing: self) }
+    
     class var nib: UINib { return UINib(nibName: identifier, bundle: nil) }
     
     var cellViewModel: NewsCellViewModel? {
@@ -27,7 +28,9 @@ class NewsCell: UITableViewCell {
             self.author.text = cellViewModel?.author ?? ""
             if let urlstring = cellViewModel?.imageUrl , let imageURL = URL.init(string: urlstring){
                 self.imageV.contentMode = .scaleAspectFill
-                self.imageV.sd_setImage(with: imageURL, placeholderImage: nil, options: .transformAnimatedImage, context: nil)
+                self.imageV.sd_setImage(with: imageURL,
+                                        placeholderImage: UIImage.init(named: Constants.Image.placeholderImage),
+                                        options: .transformAnimatedImage, context: nil)
             }
         }
     }
@@ -56,7 +59,6 @@ class NewsCell: UITableViewCell {
         self.title.lineBreakMode = .byWordWrapping
         self.author.numberOfLines = 0
         self.author.lineBreakMode = .byWordWrapping
-        
     }
     
     override func prepareForReuse() {
