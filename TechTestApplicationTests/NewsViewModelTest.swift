@@ -45,83 +45,49 @@ class NewsViewModelTest: XCTestCase {
     }
     
    
-    func testGetNewsArrayFunctionForErrorResponse() {
-        
-        // Given
-        let expect = expectation(description: "API failure")
-        var thrownError: Error?
-        let errorHandler = { thrownError = $0 }
-        
-        // When
-        Task{
-            //do {
-                await self.sut.getNewsArray
-//            }
-//            catch{
-//                errorHandler(error)
-//            }
-            expect.fulfill()
-        }
-        
-         waitForExpectations(timeout: 5)
-        
-        XCTAssertNotNil(sut.serverError)
-                
-        // Sut should display predefined news count
-//        if let error = thrownError {
-////                    XCTFail(
-////                        "Async error thrown: \(error)"
-////                    )
-//                }
-        
-        
-        
-    }
-   /*
     func testLoadingWhenFetchingNewsFromServer() {
         
         //Given
-        var loadingStatus = false
         let expect = XCTestExpectation(description: "Loading status updated")
         
         sut.showAnimator = { (showAnimator) in
-            loadingStatus = (self.sut!.isDataLoading)
-            
             expect.fulfill()
             
+            
         }
-        expect.fulfill()
         //when fetching
-        sut.getNewsArray()
+        Task{
+            await self.sut.getNewsArray()
+            self.sut?.isDataLoading = false
+        }
+        
+        wait(for: [expect], timeout: 3.0)
+
         
         // Assert
-        XCTAssertTrue(loadingStatus)
+        XCTAssertTrue(sut.isDataLoading)
         
-        // When finished fetching
-       // mockAPIService!.fetchSuccess()
-        XCTAssertFalse( loadingStatus )
-        
-        wait(for: [expect], timeout: 1.0)
     }
     
     func testCreateNewsCellViewModel() {
         // Given
-        let news = StubGenerator.stubNews()
-       // mockAPIService.serverResponseNews = news
         let expect = XCTestExpectation(description: "reload closure triggered")
         sut.reloadTableView = { () in
             expect.fulfill()
         }
         
         // When
-        sut.getNewsArray()
-       // mockAPIService.fetchSuccess()
-        
-        // Number of cell view model is equal to the number of photos
-        XCTAssertEqual( sut.newsCellViewModels.count, news.count )
+        Task{
+            await self.sut.getNewsArray()
+        }
         
         // XCTAssert reload closure triggered
-        wait(for: [expect], timeout: 1.0)
+        wait(for: [expect], timeout: 5.0)
+
+        // Number of cell view model is equal to the number of photos
+        XCTAssertEqual( sut.newsCellViewModels.count, 2 )
+        
+        
         
     }
     
@@ -133,19 +99,20 @@ class NewsViewModelTest: XCTestCase {
         }
         
         // When
-        sut.getNewsArray()
-        //mockAPIService.fetchFail(error: .noNetwork)
-        sut.serverError = mockAPIService.serverError
+        Task{
+            await self.sut.getNewsArray()
+            sut.serverError = APIError.noNetwork
+        }
+        
+        // XCTAssert error closure triggered
+        wait(for: [expect], timeout: 3.0)
         
         // Server Error
-        XCTAssertEqual( sut.serverError, APIError.noNetwork )
-        
-        // XCTAssert reload closure triggered
-        wait(for: [expect], timeout: 3.0)
+        XCTAssertNotNil(sut.serverError)
         
     }
     
-    */
+    
     
     
 }

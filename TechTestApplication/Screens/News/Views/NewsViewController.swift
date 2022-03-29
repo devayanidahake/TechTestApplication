@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 
-class NewsViewController: UIViewController{
+class NewsViewController: BaseViewController{
     //MARK: Properties
     @IBOutlet weak var tableView: UITableView!
     
@@ -22,14 +22,14 @@ class NewsViewController: UIViewController{
     //MARK: Methods
     override func viewDidLoad() {
         super.viewDidLoad()
-        initView()
-        initViewModel()
+        configureView()
+        configureViewModel()
     }
     
-    private func initView() {
-        setTableViewProperties()
+    private func configureView() {
         animator.startAnimating()
-        self.navigationItem.title = Constants.Titles.newsListTitle
+        setTableViewProperties()
+        setNavigationAppearance(title: Constants.Titles.newsListTitle)
     }
     
     private func setTableViewProperties() {
@@ -43,7 +43,15 @@ class NewsViewController: UIViewController{
         tableView.register(NewsCell.nib, forCellReuseIdentifier: NewsCell.identifier)
     }
     
-    private func initViewModel() {
+    private func configureViewModel() {
+        
+        // Get news data from VM
+        Task{
+            await self.viewModel.getNewsArray()
+        }
+        
+        //All callbacks from view models
+        // Show loader till list appears
         viewModel.showAnimator = { [weak self] (showAnimator) in
             //TODO: Need to use async await for clean code
             DispatchQueue.main.async {
@@ -59,12 +67,7 @@ class NewsViewController: UIViewController{
                 }), from: sourceVC)
             }
         }
-        
-        // Get news data
-        Task{
-            await self.viewModel.getNewsArray()
-        }
-        
+
         // Reload TableView closure
         viewModel.reloadTableView = { [weak self] in
             DispatchQueue.main.async {
@@ -75,7 +78,7 @@ class NewsViewController: UIViewController{
         // Navigate to detail screen
         viewModel.navigateToNewsDetailView = { [weak self] (newsURL) in
             
-            let detailVM = NewsDetailViewModel.init(newsURLvalue: newsURL)
+            let detailVM = NewsDetailViewModel.init(newsURL: newsURL)
             let detailVC = NewsDetailViewController.create(model: detailVM)
             
             self?.navigationController?.pushViewController(detailVC, animated: true)
@@ -108,7 +111,7 @@ extension NewsViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: NewsCell.identifier, for: indexPath) as? NewsCell else { fatalError("xib does not exists") }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: NewsCell.identifier, for: indexPath) as? NewsCell else { fatalError(Constants.ErrorMessages.xibNotFound) }
         // cell  will be created with CellVM data
         let cellVM = viewModel.getCellViewModel(at: indexPath)
         cell.cellViewModel = cellVM

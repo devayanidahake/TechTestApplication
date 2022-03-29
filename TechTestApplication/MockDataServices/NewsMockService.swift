@@ -29,7 +29,7 @@ class NewsMockDataService: NewsDataServiceProtocol {
 class StubGenerator {
     
     static func stubNews() throws -> [News] {
-        guard  let path = Bundle.main.path(forResource: "NewsDat", ofType: "json")
+        guard  let path = Bundle.main.path(forResource: "NewsData", ofType: "json")
         else {
             throw APIError.unknown
         }

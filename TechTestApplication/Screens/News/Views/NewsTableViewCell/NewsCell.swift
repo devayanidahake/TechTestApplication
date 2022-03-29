@@ -11,6 +11,7 @@ import SDWebImage
 
 class NewsCell: UITableViewCell {
     
+    //MARK: Properties
     @IBOutlet weak var title: UILabel!
     
     @IBOutlet weak var imageV: UIImageView!
@@ -31,16 +32,17 @@ class NewsCell: UITableViewCell {
         }
     }
     
+    //MARK: Methods
     override func awakeFromNib() {
         super.awakeFromNib()
-        initView()
+        configureView()
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
     }
     
-    func initView() {
+    private func configureView() {
         // Cell view customization
         backgroundColor = .clear
         

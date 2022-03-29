@@ -6,21 +6,27 @@
 //
 
 import Foundation
+
 protocol NewsDetailViewModelProtocol: AnyObject {
-    //Properties
-    var newsURL: String { get }
+    
+    func fetchWebViewURLToLoad() throws -> URL
+    
 }
 
 final class NewsDetailViewModel : NewsDetailViewModelProtocol {
-    var newsURL = ""{
-        didSet{
-            reloadWebView?()
-        }
+    
+    //MARK: Properties
+    var newsDetailURL: String
+    
+    required init(newsURL : String) {
+        self.newsDetailURL = newsURL
     }
     
-    var reloadWebView: (() -> Void)?
-
-    required init(newsURLvalue : String) {
-        self.newsURL = newsURLvalue
+    //MARK: Methods
+    func fetchWebViewURLToLoad() throws -> URL  {
+        guard let webViewURL = URL.init(string: newsDetailURL) else {
+            throw APIError.invalidURL
+        }
+        return webViewURL
     }
 }

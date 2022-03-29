@@ -25,4 +25,14 @@ struct Constants {
     struct Value{
         static let tableRowEstimatedHeight = 90.0
     }
+  
+    struct ErrorMessages{
+        static let xibNotFound = "xib does not exists"
+        static let invalidURL = "Invalid URL"
+        static let invalidResponse = "Invalid response"
+        static let unknownError = "Unknown error"
+        static let noInternetConnection = "No internet connection"
+        static let noError = "No Error"
+
+    }
 }

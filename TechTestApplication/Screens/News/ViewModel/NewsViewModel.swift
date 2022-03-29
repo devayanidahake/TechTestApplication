@@ -20,9 +20,7 @@ protocol NewsViewModelProtocol: AnyObject {
     
 }
 
-final class NewsViewModel : NewsViewModelProtocol{
-    
-    
+final class NewsViewModel : NewsViewModelProtocol {
     
     //MARK: Properties
     var showAnimator: ((Bool) -> Void)?

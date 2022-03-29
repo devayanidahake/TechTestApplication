@@ -8,16 +8,18 @@
 import Foundation
 import WebKit
 
-class NewsDetailViewController: UIViewController{
+class NewsDetailViewController: BaseViewController{
     
+    //MARK: Properties
     @IBOutlet weak var webView: WKWebView!
     
     @IBOutlet weak var animator: UIActivityIndicatorView!
     
     lazy var viewModel: NewsDetailViewModelProtocol = {
-        NewsDetailViewModel(newsURLvalue: "")
+        NewsDetailViewModel(newsURL: "")
     }() as NewsDetailViewModelProtocol
     
+    //Dependency injection through methods
     static func create(model: NewsDetailViewModelProtocol) -> NewsDetailViewController {
         let storyboard = UIStoryboard(name: Constants.StoryboardXIBNames.main, bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: Constants.StoryboardXIBNames.newsDetailViewController)as! NewsDetailViewController
@@ -25,30 +27,48 @@ class NewsDetailViewController: UIViewController{
         return vc
     }
     
+    //MARK: Methods
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        initView()
+        configureView()
+        configureViewModel()
         webView.navigationDelegate = self
     }
     
-    private func initView() {
-        reloadWebView()
+    private func configureView() {
         animator.startAnimating()
-        self.navigationItem.title = Constants.Titles.newsDetailTitle
+        setNavigationAppearance(title: Constants.Titles.newsDetailTitle)
     }
     
-    private func reloadWebView() {
-        let url = URL(string: viewModel.newsURL)!
-        webView.load(URLRequest(url: url))
+    private func configureViewModel() {
+        do{
+            let webViewURL = try viewModel.fetchWebViewURLToLoad()
+            self.webView.load(URLRequest.init(url: webViewURL))
+            
+        }
+        catch{
+            DispatchQueue.main.async {
+                Alert.present(title: error.localizedDescription, message: "", actions: .ok(handler: {
+                }), from: self)
+            }
+        }
     }
+    
 }
 
 extension NewsDetailViewController: WKNavigationDelegate {
+    
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        animator.stopAnimating()
+        DispatchQueue.main.async {
+            self.animator.stopAnimating()
+        }
     }
     
     func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
-        animator.stopAnimating()
+        DispatchQueue.main.async {
+            self.animator.stopAnimating()
+            
+        }
     }
 }
