@@ -11,12 +11,12 @@ import UIKit
 
 class NewsViewController: BaseViewController{
     //MARK: Properties
-    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet private weak var tableView: UITableView!
     
-    @IBOutlet weak var animator: UIActivityIndicatorView!
+    @IBOutlet private weak var animator: UIActivityIndicatorView!
     
     lazy var viewModel: NewsViewModelProtocol = {
-        NewsViewModel.init(newsDataService: NewsDataService())
+        NewsViewModel.init(newsDataService: NewsDataService(withNetworkManager: NetworkManager()))
     }() as NewsViewModelProtocol
     
     //MARK: Methods

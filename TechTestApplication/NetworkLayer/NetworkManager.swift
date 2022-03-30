@@ -21,29 +21,23 @@ enum HTTPMethod:String {
 
 protocol NetworkManagerProtocol {
     
-    func apiGETMethod(url: String) async throws -> Data
+    func apiGETMethod(url: URL) async throws -> Data
     
 }
 
-class NetworkManager {
+class NetworkManager: NetworkManagerProtocol {
     
-    static let shared = NetworkManager()
-    
-    private init() {}
-    
-    func apiGETMethod(url: String) async throws -> Data {
+    fileprivate func checkInternectConnectivity() throws {
         //Check if internet is available
         if !NetworkMonitor.shared.isReachable {
             throw APIError.noNetwork
         }
-        //Check if api url is correct
-        guard let components = URLComponents(string: url) else {
-            throw APIError.invalidURL
-        }
-        
-        guard let url = components.url else {
-            throw APIError.invalidURL
-        }
+    }
+    
+    
+    
+    func apiGETMethod(url: URL) async throws -> Data {
+        try checkInternectConnectivity()
         
         //Set URL parameters
         var request = URLRequest(url: url)

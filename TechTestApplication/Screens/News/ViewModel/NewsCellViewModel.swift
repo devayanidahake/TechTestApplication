@@ -12,5 +12,4 @@ struct NewsCellViewModel{
     let title: String
     let date: String
     let imageUrl: String
-
 }

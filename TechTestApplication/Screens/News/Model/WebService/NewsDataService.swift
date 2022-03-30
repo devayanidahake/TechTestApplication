@@ -10,16 +10,15 @@ import Foundation
 enum NewsApi {
     case list
     case invalid
-    
     var apiURL: String{
         switch self {
         case .list:
-                return Constants.URLs.baseURL + Constants.URLs.newsListEndpoints
+            return Constants.URLs.baseURL + Constants.URLs.newsListEndpoints
         case .invalid:
             return Constants.URLs.baseURL
+        }
+        
     }
-    
-}
 }
 
 
@@ -29,17 +28,49 @@ protocol NewsDataServiceProtocol {
 }
 
 class NewsDataService: NewsDataServiceProtocol {
+    private var networkManager: NetworkManagerProtocol
+    
+    init(withNetworkManager: NetworkManagerProtocol) {
+        self.networkManager = withNetworkManager
+    }
+    
     
     func getNewsData(api: NewsApi) async throws -> NewsArray
     {
         do{
-            let responseData = try await NetworkManager.shared.apiGETMethod(url: api.apiURL)
-            let newsDict = try JSONDecoder().decode(NewsDict.self, from: responseData)
-            return newsDict.newsArray
+            //Check if api url is correct
+            let url = try createNewsURL(api: api)
+            let responseData = try await self.networkManager.apiGETMethod(url: url)
+            let newsDictData = try self.parseServerResponseData(serverResponseData: responseData)
+            return newsDictData.newsArray
         }
         catch
         {
             throw error
+        }
+    }
+    
+    private func createNewsURL(api: NewsApi) throws -> URL {
+        guard let components = URLComponents(string: api.apiURL) else {
+            throw APIError.invalidURL
+        }
+        
+        guard let url = components.url else {
+            throw APIError.invalidURL
+        }
+        return url
+    }
+    
+    private func parseServerResponseData(serverResponseData: Data?) throws -> NewsDict {
+        guard let data = serverResponseData
+        else {  throw APIError.responseError }
+        do{
+            let newsDict = try JSONDecoder().decode(NewsDict.self, from: data)
+            return newsDict
+            
+        }
+        catch{  throw APIError.responseError
+            
         }
     }
 }

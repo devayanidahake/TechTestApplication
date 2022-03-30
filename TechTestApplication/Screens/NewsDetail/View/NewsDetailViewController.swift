@@ -11,9 +11,9 @@ import WebKit
 class NewsDetailViewController: BaseViewController{
     
     //MARK: Properties
-    @IBOutlet weak var webView: WKWebView!
+    @IBOutlet private weak var webView: WKWebView!
     
-    @IBOutlet weak var animator: UIActivityIndicatorView!
+    @IBOutlet private weak var animator: UIActivityIndicatorView!
     
     lazy var viewModel: NewsDetailViewModelProtocol = {
         NewsDetailViewModel(newsURL: "")

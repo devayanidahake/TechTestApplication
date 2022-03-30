@@ -110,6 +110,28 @@ class NewsViewModelTest: XCTestCase {
         
     }
     
+    func testGetCellViewModelForSuccessReturn() {
+        //Given
+        do {
+            sut.newsArray = try StubGenerator.stubNews()
+            sut.newsCellViewModels = [NewsCellViewModel.init(author: "A", title: "J", date: "abcd ", imageUrl: "https://www.google.com")]
+            let index = 0
+            
+            //When
+            let cellVM = sut.getCellViewModel(at: IndexPath.init(row: index, section: 0))
+            XCTAssertNotNil(cellVM)
+            XCTAssertEqual((cellVM.title), "J")
+        }
+        catch
+        {
+            XCTAssertNil(error)
+
+        }
+    
+        
+       
+    }
+    
     
     
     
