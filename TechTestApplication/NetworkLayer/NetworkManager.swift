@@ -8,15 +8,14 @@
 import Foundation
 
 enum HTTPHeaderFields: String {
-    case application_json = "application/json"
-    case application_x_www_form_urlencoded = "application/xml"
-    case application_content_type = "Content-Type"
-    case none
+    case applicationJson = "application/json"
+    case applicationXMLurlencoded = "application/xml"
+    case applicationContentType = "Content-Type"
 }
 
-enum HTTPMethod:String {
-    case GET = "GET"
-    case POST = "POST"
+enum HTTPMethod: String {
+    case get = "GET"
+    case post = "POST"
 }
 
 protocol NetworkManagerProtocol {
@@ -28,7 +27,7 @@ protocol NetworkManagerProtocol {
 class NetworkManager: NetworkManagerProtocol {
     
     fileprivate func checkInternectConnectivity() throws {
-        //Check if internet is available
+        // Check if internet is available
         if !NetworkMonitor.shared.isReachable {
             throw APIError.noNetwork
         }
@@ -39,11 +38,11 @@ class NetworkManager: NetworkManagerProtocol {
     func apiGETMethod(url: URL) async throws -> Data {
         try checkInternectConnectivity()
         
-        //Set URL parameters
+        // Set URL parameters
         var request = URLRequest(url: url)
-        request.httpMethod = HTTPMethod.GET.rawValue
+        request.httpMethod = HTTPMethod.get.rawValue
         
-        request.setValue(HTTPHeaderFields.application_json.rawValue, forHTTPHeaderField: HTTPHeaderFields.application_content_type.rawValue)
+        request.setValue(HTTPHeaderFields.applicationJson.rawValue, forHTTPHeaderField: HTTPHeaderFields.applicationContentType.rawValue)
 
         // .ephemeral prevent JSON from caching (They'll store in Ram and nothing on Disk)
         let config = URLSessionConfiguration.ephemeral
@@ -61,9 +60,4 @@ class NetworkManager: NetworkManagerProtocol {
             throw APIError.unknown
         }
     }
-    
 }
-
-
-
-

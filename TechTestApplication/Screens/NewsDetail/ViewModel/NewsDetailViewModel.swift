@@ -13,18 +13,18 @@ protocol NewsDetailViewModelProtocol: AnyObject {
     
 }
 
-final class NewsDetailViewModel : NewsDetailViewModelProtocol {
+final class NewsDetailViewModel: NewsDetailViewModelProtocol {
     
-    //MARK: Properties
+    // MARK: Properties
     var newsDetailURL: String
     
-    required init(newsURL : String) {
+    required init(newsURL: String) {
         self.newsDetailURL = newsURL
     }
     
-    //MARK: Methods
+    // MARK: Methods
     func fetchWebViewURLToLoad() throws -> URL  {
-        guard let webViewURL = URL.init(string: newsDetailURL) else {
+        guard let webViewURL = URL(string: newsDetailURL) else {
             throw APIError.invalidURL
         }
         return webViewURL

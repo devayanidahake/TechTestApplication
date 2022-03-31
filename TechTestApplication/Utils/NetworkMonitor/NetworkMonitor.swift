@@ -9,14 +9,14 @@ import Foundation
 import Network
 
 class NetworkMonitor {
-    //MARK: Properties
+    // MARK: Properties
     static let shared = NetworkMonitor()
     let monitor = NWPathMonitor()
     private var status: NWPath.Status = .requiresConnection
     var isReachable: Bool { status == .satisfied }
-    var isReachableOnCellular: Bool = true
+    var isReachableOnCellular = true
     
-    //MARK: Methods
+    // MARK: Methods
     /**
     This function checks if internet connection is available.
      Use status property to check the updated value.

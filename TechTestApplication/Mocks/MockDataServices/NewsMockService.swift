@@ -45,4 +45,18 @@ class StubGenerator {
             throw APIError.unknown
         }
     }
+    
+    static func stubResponseData() throws -> Data {
+        guard  let path = Bundle.main.path(forResource: "NewsData", ofType: "json")
+        else {
+            throw APIError.unknown
+        }
+        do {
+            let data = try Data(contentsOf: URL(fileURLWithPath: path))
+            return data
+        }
+        catch{
+            throw APIError.unknown
+        }
+    }
 }

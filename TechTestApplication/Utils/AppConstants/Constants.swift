@@ -19,6 +19,7 @@ struct Constants {
     
     struct StoryboardXIBNames{
         static let main = "Main"
+        static let newsViewController = "NewsViewController"
         static let newsDetailViewController = "NewsDetailViewController"
     }
     

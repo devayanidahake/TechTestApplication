@@ -11,12 +11,12 @@ import SDWebImage
 
 class NewsCell: UITableViewCell {
     
-    //MARK: Properties
-    @IBOutlet weak var title: UILabel!
+    // MARK: Properties
+    @IBOutlet private var title: UILabel!
     
-    @IBOutlet weak var imageV: UIImageView!
+    @IBOutlet private var imageV: UIImageView!
     
-    @IBOutlet weak var author: UILabel!
+    @IBOutlet private var author: UILabel!
     
     class var identifier: String { return String(describing: self) }
     
@@ -26,16 +26,16 @@ class NewsCell: UITableViewCell {
         didSet {
             self.title.text = cellViewModel?.title ?? ""
             self.author.text = cellViewModel?.author ?? ""
-            if let urlstring = cellViewModel?.imageUrl , let imageURL = URL.init(string: urlstring){
+            if let urlstring = cellViewModel?.imageUrl, let imageURL = URL(string: urlstring){
                 self.imageV.contentMode = .scaleAspectFill
                 self.imageV.sd_setImage(with: imageURL,
-                                        placeholderImage: UIImage.init(named: Constants.Image.placeholderImage),
+                                        placeholderImage: UIImage(named: Constants.Image.placeholderImage),
                                         options: .transformAnimatedImage, context: nil)
             }
         }
     }
     
-    //MARK: Methods
+    // MARK: Methods
     override func awakeFromNib() {
         super.awakeFromNib()
         configureView()
@@ -54,7 +54,7 @@ class NewsCell: UITableViewCell {
         separatorInset = UIEdgeInsets.zero
         layoutMargins = UIEdgeInsets.zero
         
-        //Cell label properties
+        // Cell label properties
         self.title.numberOfLines = 0
         self.title.lineBreakMode = .byWordWrapping
         self.author.numberOfLines = 0

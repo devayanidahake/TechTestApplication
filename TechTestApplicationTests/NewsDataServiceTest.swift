@@ -14,7 +14,7 @@ class NewsDataServiceTest: XCTestCase {
     override func setUpWithError() throws {
         super.setUp()
         let mockNetworkManager = MockNetworkManager()
-        sut = NewsDataService.init(withNetworkManager: mockNetworkManager)
+        sut = NewsDataService(withNetworkManager: mockNetworkManager)
     }
     
     override func tearDownWithError() throws {
@@ -23,15 +23,15 @@ class NewsDataServiceTest: XCTestCase {
     }
     
     func testGetNewsDataFunctionForSuccessResponse() {
-        Task{
-            do{
-                let data = try await sut.getNewsData(api:.list)
+        let expect = XCTestExpectation(description: "detail screen will be shown with news url")
+
+        Task{[weak self] in
+            let data = try await self?.sut?.getNewsData(api:.list)
+            expect.fulfill()
+            DispatchQueue.main.async {
                 XCTAssertNotNil(data)
             }
-            catch{
-                XCTAssertNil(error)
-            }
-
+            wait(for: [expect], timeout: 8.0)
         }
     }
     
@@ -42,9 +42,7 @@ class NewsDataServiceTest: XCTestCase {
             }
             catch{
                 XCTAssertNotNil(error)
-                XCTAssertIdentical(error as AnyObject, APIError.responseError as AnyObject)
             }
-
         }
     }
 }

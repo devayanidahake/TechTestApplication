@@ -38,7 +38,7 @@ class NewsDataService: NewsDataServiceProtocol {
     func getNewsData(api: NewsApi) async throws -> NewsArray
     {
         do{
-            //Check if api url is correct
+            // Check if api url is correct
             let url = try createNewsURL(api: api)
             let responseData = try await self.networkManager.apiGETMethod(url: url)
             let newsDictData = try self.parseServerResponseData(serverResponseData: responseData)
@@ -67,7 +67,6 @@ class NewsDataService: NewsDataServiceProtocol {
         do{
             let newsDict = try JSONDecoder().decode(NewsDict.self, from: data)
             return newsDict
-            
         }
         catch{  throw APIError.responseError
             

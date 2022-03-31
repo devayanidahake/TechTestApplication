@@ -10,16 +10,16 @@ import UIKit
 
 
 class NewsViewController: BaseViewController{
-    //MARK: Properties
-    @IBOutlet private weak var tableView: UITableView!
+    // MARK: Properties
+    @IBOutlet private var tableView: UITableView!
     
-    @IBOutlet private weak var animator: UIActivityIndicatorView!
+    @IBOutlet private var animator: UIActivityIndicatorView!
     
     lazy var viewModel: NewsViewModelProtocol = {
-        NewsViewModel.init(newsDataService: NewsDataService(withNetworkManager: NetworkManager()))
+        NewsViewModel(newsDataService: NewsDataService(withNetworkManager: NetworkManager()))
     }() as NewsViewModelProtocol
     
-    //MARK: Methods
+    // MARK: Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         configureView()
@@ -48,7 +48,7 @@ class NewsViewController: BaseViewController{
         
         fetchNewsFeed()
         
-        //All callbacks from view models
+        // All callbacks from view models
         handleDataLoader()
         
         handleErrorNotification()
@@ -100,14 +100,14 @@ extension NewsViewController{
         // Navigate to detail screen
         viewModel.navigateToNewsDetailView = { [weak self] (newsURL) in
             
-            let detailVM = NewsDetailViewModel.init(newsURL: newsURL)
-            let detailVC = NewsDetailViewController.create(model: detailVM)
+            let detailVM = NewsDetailViewModel(newsURL: newsURL)
+            guard let detailVC = NewsDetailViewController.create(model: detailVM) else{return}
             
             self?.navigationController?.pushViewController(detailVC, animated: true)
         }
     }
     
-    //MARK: UI update operations done using Mainactor on main thread
+    // MARK: UI update operations done using Mainactor on main thread
     @MainActor
     private func reloadTableView() {
         self.tableView.reloadData()
@@ -163,4 +163,3 @@ extension NewsViewController: UITableViewDataSource {
         return cell
     }
 }
-

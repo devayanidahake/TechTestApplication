@@ -18,7 +18,7 @@ class NewsDetailViewModelTest: XCTestCase {
     }
     
     func testIfWebViewURLCreationSucceed() {
-        //Given
+        // Given
         let expect = XCTestExpectation(description: "Web view url is correct")
         let urlString = "https://www.google.com"
         sut.newsDetailURL = urlString
@@ -33,7 +33,7 @@ class NewsDetailViewModelTest: XCTestCase {
             
         }
         
-        //WHEN
+        // WHEN
         
         wait(for: [expect], timeout: 3.0)
 

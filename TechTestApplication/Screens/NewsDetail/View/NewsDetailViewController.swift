@@ -10,24 +10,24 @@ import WebKit
 
 class NewsDetailViewController: BaseViewController{
     
-    //MARK: Properties
-    @IBOutlet private weak var webView: WKWebView!
+    // MARK: Properties
+    @IBOutlet private var webView: WKWebView!
     
-    @IBOutlet private weak var animator: UIActivityIndicatorView!
+    @IBOutlet private var animator: UIActivityIndicatorView!
     
     lazy var viewModel: NewsDetailViewModelProtocol = {
         NewsDetailViewModel(newsURL: "")
     }() as NewsDetailViewModelProtocol
     
-    //Dependency injection through methods
-    static func create(model: NewsDetailViewModelProtocol) -> NewsDetailViewController {
+    // Dependency injection through methods
+    static func create(model: NewsDetailViewModelProtocol) -> NewsDetailViewController? {
         let storyboard = UIStoryboard(name: Constants.StoryboardXIBNames.main, bundle: nil)
-        let vc = storyboard.instantiateViewController(withIdentifier: Constants.StoryboardXIBNames.newsDetailViewController)as! NewsDetailViewController
-        vc.viewModel = model
+        let vc = storyboard.instantiateViewController(withIdentifier: Constants.StoryboardXIBNames.newsDetailViewController)as? NewsDetailViewController
+        vc?.viewModel = model
         return vc
     }
     
-    //MARK: Methods
+    // MARK: Methods
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,7 +44,7 @@ class NewsDetailViewController: BaseViewController{
     private func configureViewModel() {
         do{
             let webViewURL = try viewModel.fetchWebViewURLToLoad()
-            self.webView.load(URLRequest.init(url: webViewURL))
+            self.webView.load(URLRequest(url: webViewURL))
             
         }
         catch{

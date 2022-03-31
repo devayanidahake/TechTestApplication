@@ -15,7 +15,7 @@ class NewsViewModelTest: XCTestCase {
     override func setUpWithError() throws {
         super.setUp()
         let mockAPIService = NewsMockDataService()
-        sut = NewsViewModel.init(newsDataService: mockAPIService)
+        sut = NewsViewModel(newsDataService: mockAPIService)
     }
     
     override func tearDownWithError() throws {
@@ -47,13 +47,13 @@ class NewsViewModelTest: XCTestCase {
    
     func testLoadingWhenFetchingNewsFromServer() {
         
-        //Given
+        // Given
         let expect = XCTestExpectation(description: "Loading status updated")
         
         sut.shouldShowAnimator = { (showAnimator) in
             expect.fulfill()            
         }
-        //when fetching
+        // when fetching
         Task{
             await self.sut.getNewsArray()
             self.sut?.isDataLoading = false
@@ -111,28 +111,44 @@ class NewsViewModelTest: XCTestCase {
     }
     
     func testGetCellViewModelForSuccessReturn() {
-        //Given
+        // Given
         do {
             sut.newsArray = try StubGenerator.stubNews()
-            sut.newsCellViewModels = [NewsCellViewModel.init(author: "A", title: "J", date: "abcd ", imageUrl: "https://www.google.com")]
+            sut.newsCellViewModels = [NewsCellViewModel(author: "A", title: "J", date: "abcd ", imageUrl: "https://www.google.com")]
             let index = 0
             
-            //When
-            let cellVM = sut.getCellViewModel(at: IndexPath.init(row: index, section: 0))
+            // When
+            let cellVM = sut.getCellViewModel(at: IndexPath(row: index, section: 0))
             XCTAssertNotNil(cellVM)
             XCTAssertEqual((cellVM.title), "J")
         }
         catch
         {
             XCTAssertNil(error)
-
         }
-    
-        
-       
     }
     
-    
-    
-    
+    func testHandleCellPressedAtIndex() {
+        // Given
+        var isDtailScreenIsNavigatedwithIndex = false
+        let expect = XCTestExpectation(description: "detail screen will be shown with news url")
+        sut.navigateToNewsDetailView = { (newsURL) in
+            isDtailScreenIsNavigatedwithIndex = true
+            expect.fulfill()
+        }
+        
+        // When
+        Task{
+            await self.sut.getNewsArray()
+            self.sut.handleCellPressedAtIndex(index: 0)
+            
+        }
+        
+        // XCTAssert error closure triggered
+        wait(for: [expect], timeout: 3.0)
+        
+        // Server Error
+        XCTAssertTrue(isDtailScreenIsNavigatedwithIndex)
+        
+    }
 }

@@ -10,12 +10,13 @@ import Foundation
 class MockNetworkManager: NetworkManagerProtocol {
     
     func apiGETMethod(url: URL) async throws -> Data {
-        guard url.isFileURL == true else{
+        do{
+            let responseData = try StubGenerator.stubResponseData()
+            return responseData
+        }
+        catch
+        {
             throw APIError.responseError
         }
-        return Data()
     }
-    
-    
 }
-

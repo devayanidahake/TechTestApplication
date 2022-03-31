@@ -20,9 +20,9 @@ protocol NewsViewModelProtocol: AnyObject {
     
 }
 
-final class NewsViewModel : NewsViewModelProtocol {
+final class NewsViewModel: NewsViewModelProtocol {
     
-    //MARK: Properties
+    // MARK: Properties
     var shouldShowAnimator: ((Bool) -> Void)?
     
     var reloadTableView: (() -> Void)?
@@ -36,8 +36,8 @@ final class NewsViewModel : NewsViewModelProtocol {
     var newsArray = NewsArray()
     
     
-    //Obeserved Properties
-    var isDataLoading: Bool = true {
+    // Obeserved Properties
+    var isDataLoading = true {
         didSet{
             shouldShowAnimator?(isDataLoading)
         }
@@ -58,7 +58,7 @@ final class NewsViewModel : NewsViewModelProtocol {
         }
     }
     
-    //MARK: Methods
+    // MARK: Methods
     init(newsDataService: NewsDataServiceProtocol) {
         self.newsDataService = newsDataService
     }
