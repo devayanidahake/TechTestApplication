@@ -16,8 +16,7 @@ enum NewsApi {
             return Constants.URLs.baseURL + Constants.URLs.newsListEndpoints
         case .invalid:
             return Constants.URLs.baseURL
-        }
-        
+        }        
     }
 }
 
@@ -68,8 +67,8 @@ class NewsDataService: NewsDataServiceProtocol {
             let newsDict = try JSONDecoder().decode(NewsDict.self, from: data)
             return newsDict
         }
-        catch{  throw APIError.responseError
-            
+        catch{
+            throw APIError.responseError
         }
     }
 }

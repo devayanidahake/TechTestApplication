@@ -18,14 +18,11 @@ enum HTTPMethod: String {
     case post = "POST"
 }
 
-protocol NetworkManagerProtocol {
-    
+protocol NetworkManagerProtocol {    
     func apiGETMethod(url: URL) async throws -> Data
-    
 }
 
 class NetworkManager: NetworkManagerProtocol {
-    
     fileprivate func checkInternectConnectivity() throws {
         // Check if internet is available
         if !NetworkMonitor.shared.isReachable {
@@ -42,7 +39,8 @@ class NetworkManager: NetworkManagerProtocol {
         var request = URLRequest(url: url)
         request.httpMethod = HTTPMethod.get.rawValue
         
-        request.setValue(HTTPHeaderFields.applicationJson.rawValue, forHTTPHeaderField: HTTPHeaderFields.applicationContentType.rawValue)
+        request.setValue(HTTPHeaderFields.applicationJson.rawValue,
+                         forHTTPHeaderField: HTTPHeaderFields.applicationContentType.rawValue)
 
         // .ephemeral prevent JSON from caching (They'll store in Ram and nothing on Disk)
         let config = URLSessionConfiguration.ephemeral

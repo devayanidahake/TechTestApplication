@@ -8,8 +8,7 @@
 import Foundation
 import UIKit
 
-class BaseViewController: UIViewController {
-    
+class BaseViewController: UIViewController {    
     // Put all stuffs which are common to all viewControllers
     func setNavigationAppearance(title: String) {
         self.navigationItem.title = title

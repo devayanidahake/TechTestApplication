@@ -10,7 +10,6 @@ import UIKit
 import SDWebImage
 
 class NewsCell: UITableViewCell {
-    
     // MARK: Properties
     @IBOutlet private var title: UILabel!
     

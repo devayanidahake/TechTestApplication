@@ -23,7 +23,6 @@ class NewsViewModelTest: XCTestCase {
         super.tearDown()
     }
     
-    
     func testGetNewsArrayFunctionForSuccessResponse() {
         
         // Given
@@ -136,17 +135,13 @@ class NewsViewModelTest: XCTestCase {
             isDtailScreenIsNavigatedwithIndex = true
             expect.fulfill()
         }
-        
         // When
         Task{
             await self.sut.getNewsArray()
             self.sut.handleCellPressedAtIndex(index: 0)
-            
         }
-        
         // XCTAssert error closure triggered
         wait(for: [expect], timeout: 3.0)
-        
         // Server Error
         XCTAssertTrue(isDtailScreenIsNavigatedwithIndex)
         

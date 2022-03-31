@@ -11,7 +11,7 @@ import UIKit
 
 class NewsViewController: BaseViewController{
     // MARK: Properties
-    @IBOutlet private var tableView: UITableView!
+    @IBOutlet var tableView: UITableView!
     
     @IBOutlet private var animator: UIActivityIndicatorView!
     
@@ -44,8 +44,7 @@ class NewsViewController: BaseViewController{
     }
     
     
-    private func configureViewModel() {
-        
+    private func configureViewModel() {        
         fetchNewsFeed()
         
         // All callbacks from view models
@@ -81,7 +80,6 @@ extension NewsViewController{
         viewModel.showAPIError = { [weak self] error in
             Task{[weak self] in
                 guard let sourceVC = self else{return}
-                
                 self?.showApplicationAlert(sourceVC, alertTitle: error.localizedDescription)
             }
         }
@@ -99,10 +97,8 @@ extension NewsViewController{
     private func handleNavigationToDetailScreen() {
         // Navigate to detail screen
         viewModel.navigateToNewsDetailView = { [weak self] (newsURL) in
-            
             let detailVM = NewsDetailViewModel(newsURL: newsURL)
             guard let detailVC = NewsDetailViewController.create(model: detailVM) else{return}
-            
             self?.navigationController?.pushViewController(detailVC, animated: true)
         }
     }
@@ -128,7 +124,6 @@ extension NewsViewController{
         Alert.present(title: alertTitle, message: "", actions: .ok(handler: {
         }), from: sourceVC)
     }
-    
 }
 // MARK: - UITableViewDelegate
 
@@ -156,7 +151,8 @@ extension NewsViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: NewsCell.identifier, for: indexPath) as? NewsCell else { fatalError(Constants.ErrorMessages.xibNotFound) }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: NewsCell.identifier, for: indexPath) as? NewsCell
+        else { fatalError(Constants.ErrorMessages.xibNotFound) }
         // cell  will be created with CellVM data
         let cellVM = viewModel.getCellViewModel(at: indexPath)
         cell.cellViewModel = cellVM

@@ -32,9 +32,7 @@ class NewsDetailViewModelTest: XCTestCase {
         catch{
             
         }
-        
         // WHEN
-        
         wait(for: [expect], timeout: 3.0)
 
         // Assert

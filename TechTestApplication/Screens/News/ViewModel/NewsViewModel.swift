@@ -16,12 +16,10 @@ protocol NewsViewModelProtocol: AnyObject {
     
     func getNewsArray() async
     func getCellViewModel(at indexPath: IndexPath) -> NewsCellViewModel
-    func handleCellPressedAtIndex(index: Int)
-    
+    func handleCellPressedAtIndex(index: Int)    
 }
 
-final class NewsViewModel: NewsViewModelProtocol {
-    
+final class NewsViewModel: NewsViewModelProtocol {    
     // MARK: Properties
     var shouldShowAnimator: ((Bool) -> Void)?
     
@@ -65,17 +63,17 @@ final class NewsViewModel: NewsViewModelProtocol {
     
     func getNewsArray() async {
         self.isDataLoading = true
-            do{
-                let newsResults = try await newsDataService.getNewsData(api: .list)
-                    self.isDataLoading = false
-                    self.newsArray = newsResults
-                    self.createNewsCellModels()
-            }
-            catch
-            {
-                self.isDataLoading = false
-                self.serverError = error
-            }
+        do{
+            let newsResults = try await newsDataService.getNewsData(api: .list)
+            self.isDataLoading = false
+            self.newsArray = newsResults
+            self.createNewsCellModels()
+        }
+        catch
+        {
+            self.isDataLoading = false
+            self.serverError = error
+        }
     }
     
     

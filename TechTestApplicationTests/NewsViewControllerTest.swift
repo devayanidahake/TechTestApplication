@@ -12,12 +12,13 @@ import XCTest
 
 class NewsViewControllerTest: XCTestCase {
     
-    var sut: NewsViewModel!
+    var sut: NewsViewController!
     
     override func setUpWithError() throws {
         super.setUp()
-        let mockAPIService = NewsMockDataService()
-        sut = NewsViewModel(newsDataService: mockAPIService)
+        let storyboard = UIStoryboard(name: Constants.StoryboardXIBNames.main, bundle: nil)
+        let newsView = storyboard.instantiateViewController(withIdentifier: Constants.StoryboardXIBNames.newsViewController)as? NewsViewController
+        sut = newsView
     }
     
     override func tearDownWithError() throws {
@@ -26,10 +27,24 @@ class NewsViewControllerTest: XCTestCase {
     }
     
     func testIsNavigationTitleCorrect() {
-        let storyboard = UIStoryboard(name: Constants.StoryboardXIBNames.main, bundle: nil)
-        let newsView = storyboard.instantiateViewController(withIdentifier: Constants.StoryboardXIBNames.newsViewController)as? NewsViewController
-        let _ = newsView?.view
-        XCTAssertEqual(newsView?.navigationItem.title, "News")
+        let _ = sut.view
+        XCTAssertEqual(sut.navigationItem.title, "News")
+    }
+    
+    func testIfTableViewCellGetsCreated() {
+        // Given
+        _ = sut.view
+        guard let cell = sut.tableView.dequeueReusableCell(withIdentifier: NewsCell.identifier) as? NewsCell
+        else { fatalError(Constants.ErrorMessages.xibNotFound) }
+        
+        // cell  will be created with CellVM data
+        //When
+        let cellVM = NewsCellViewModel(author: "A", title: "J", date: "abcd ", imageUrl: "https://www.google.com")
+        cell.cellViewModel = cellVM
+        
+        //Then
+        XCTAssertNotNil(cell.cellViewModel?.title)
+        XCTAssertEqual(cell.cellViewModel?.author, "A")
     }
 
 }

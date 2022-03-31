@@ -8,13 +8,9 @@
 import Foundation
 
 protocol NewsDetailViewModelProtocol: AnyObject {
-    
     func fetchWebViewURLToLoad() throws -> URL
-    
 }
-
 final class NewsDetailViewModel: NewsDetailViewModelProtocol {
-    
     // MARK: Properties
     var newsDetailURL: String
     

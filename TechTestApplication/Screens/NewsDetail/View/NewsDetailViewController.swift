@@ -8,8 +8,7 @@
 import Foundation
 import WebKit
 
-class NewsDetailViewController: BaseViewController{
-    
+class NewsDetailViewController: BaseViewController{    
     // MARK: Properties
     @IBOutlet private var webView: WKWebView!
     
@@ -22,13 +21,13 @@ class NewsDetailViewController: BaseViewController{
     // Dependency injection through methods
     static func create(model: NewsDetailViewModelProtocol) -> NewsDetailViewController? {
         let storyboard = UIStoryboard(name: Constants.StoryboardXIBNames.main, bundle: nil)
-        let vc = storyboard.instantiateViewController(withIdentifier: Constants.StoryboardXIBNames.newsDetailViewController)as? NewsDetailViewController
+        let vc = storyboard.instantiateViewController(
+            withIdentifier: Constants.StoryboardXIBNames.newsDetailViewController)as? NewsDetailViewController
         vc?.viewModel = model
         return vc
     }
     
     // MARK: Methods
-
     override func viewDidLoad() {
         super.viewDidLoad()
         configureView()
@@ -45,7 +44,6 @@ class NewsDetailViewController: BaseViewController{
         do{
             let webViewURL = try viewModel.fetchWebViewURLToLoad()
             self.webView.load(URLRequest(url: webViewURL))
-            
         }
         catch{
             DispatchQueue.main.async {
@@ -54,11 +52,9 @@ class NewsDetailViewController: BaseViewController{
             }
         }
     }
-    
 }
 
 extension NewsDetailViewController: WKNavigationDelegate {
-    
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         DispatchQueue.main.async {
             self.animator.stopAnimating()
@@ -68,7 +64,6 @@ extension NewsDetailViewController: WKNavigationDelegate {
     func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
         DispatchQueue.main.async {
             self.animator.stopAnimating()
-            
         }
     }
 }

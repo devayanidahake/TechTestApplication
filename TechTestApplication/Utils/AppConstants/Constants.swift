@@ -34,7 +34,6 @@ struct Constants {
         static let unknownError = "Unknown error"
         static let noInternetConnection = "No internet connection"
         static let noError = "No Error"
-
     }
     
     struct Image {
