@@ -33,21 +33,22 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="k9y-Qq-grg">
-                                <rect key="frame" x="0.0" y="104" width="414" height="758"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <color key="sectionIndexBackgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="Cbn-9Y-o4s">
-                                <rect key="frame" x="0.0" y="108" width="414" height="754"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="k9y-Qq-grg" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="16" id="9yd-HA-kPA"/>
+                            <constraint firstItem="k9y-Qq-grg" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="9yd-HA-kPA"/>
                             <constraint firstItem="k9y-Qq-grg" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="SWE-HV-4OU"/>
-                            <constraint firstItem="Cbn-9Y-o4s" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="Sep-QM-mgJ"/>
+                            <constraint firstItem="Cbn-9Y-o4s" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="Sep-QM-mgJ"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Cbn-9Y-o4s" secondAttribute="bottom" id="bJG-I8-R0u"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="k9y-Qq-grg" secondAttribute="trailing" id="eXz-N6-hyp"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Cbn-9Y-o4s" secondAttribute="trailing" id="hlS-qL-n2Z"/>
@@ -90,7 +91,8 @@
                             </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="ADU-8e-123"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="Z5g-TP-aEF" firstAttribute="centerY" secondItem="ADU-8e-123" secondAttribute="centerY" id="HXM-LW-0r0"/>
                             <constraint firstAttribute="trailing" secondItem="N8V-97-vAc" secondAttribute="trailing" id="O6I-PS-78R"/>
