@@ -145,4 +145,18 @@ class NewsViewModelTest: XCTestCase {
         XCTAssertTrue(isDtailScreenIsNavigatedwithIndex)
         
     }
+    
+    func testIfServerErrorIsInvalid() {
+        // Given
+        var isServerErrorISInValid = true
+        sut.showAPIError = { (error) in
+            isServerErrorISInValid = false
+        }
+        
+        // When
+        sut.serverError = nil
+
+        // Server Error
+        XCTAssertTrue(isServerErrorISInValid)
+    }
 }
