@@ -9,6 +9,9 @@ import Foundation
 
 class NewsMockDataService: NewsDataServiceProtocol {
     func getNewsData(api: NewsApi) async throws -> NewsArray {
+        if !(NetworkMonitor.shared.isReachable){
+            throw APIError.noNetwork
+        }
         if api == .invalid {
             throw APIError.unknown
         }
