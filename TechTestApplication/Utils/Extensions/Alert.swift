@@ -20,13 +20,13 @@ struct Alert {
 
 extension Alert {
     enum Action {
-        case ok(handler: (() -> Void)?)
+        case okay(handler: (() -> Void)?)
         case close
         
         // Returns the title of our action button
         private var title: String {
             switch self {
-            case .ok:
+            case .okay:
                 return "OK"
             case .close:
                 return "Close"
@@ -36,7 +36,7 @@ extension Alert {
         // Returns the completion handler of our button
         private var handler: (() -> Void)? {
             switch self {
-            case .ok(let handler):
+            case .okay(let handler):
                 return handler
             case .close:
                 return nil

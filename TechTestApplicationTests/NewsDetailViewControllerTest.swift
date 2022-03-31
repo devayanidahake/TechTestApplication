@@ -25,7 +25,7 @@ class NewsDetailViewControllerTest: XCTestCase {
         let storyboard = UIStoryboard(name: Constants.StoryboardXIBNames.main, bundle: nil)
         let newsView = storyboard.instantiateViewController(withIdentifier: Constants.StoryboardXIBNames.newsDetailViewController)as? NewsDetailViewController
         let _ = newsView?.view
-        XCTAssertEqual(newsView?.navigationItem.title, "News-Details")
+        XCTAssertEqual(newsView?.navigationItem.title, Constants.Titles.newsDetailTitle)
     }
     
     func testICreateDetailViewObjectWithViewModel() {

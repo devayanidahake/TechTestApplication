@@ -102,7 +102,7 @@ class NewsViewModelTest: XCTestCase {
         }
         
         // XCTAssert error closure triggered
-        wait(for: [expect], timeout: 3.0)
+        wait(for: [expect], timeout: 5.0)
         
         // Server Error
         XCTAssertNotNil(sut.serverError)
@@ -115,7 +115,6 @@ class NewsViewModelTest: XCTestCase {
             sut.newsArray = try StubGenerator.stubNews()
             sut.newsCellViewModels = [NewsCellViewModel(author: "A", title: "J", date: "abcd ", imageUrl: "https://www.google.com")]
             let index = 0
-            
             // When
             let cellVM = sut.getCellViewModel(at: IndexPath(row: index, section: 0))
             XCTAssertNotNil(cellVM)

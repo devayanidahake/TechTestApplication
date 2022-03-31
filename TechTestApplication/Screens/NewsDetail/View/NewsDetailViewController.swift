@@ -21,10 +21,10 @@ class NewsDetailViewController: BaseViewController{
     // Dependency injection through methods
     static func create(model: NewsDetailViewModelProtocol) -> NewsDetailViewController? {
         let storyboard = UIStoryboard(name: Constants.StoryboardXIBNames.main, bundle: nil)
-        let vc = storyboard.instantiateViewController(
+        let viewController = storyboard.instantiateViewController(
             withIdentifier: Constants.StoryboardXIBNames.newsDetailViewController)as? NewsDetailViewController
-        vc?.viewModel = model
-        return vc
+        viewController?.viewModel = model
+        return viewController
     }
     
     // MARK: Methods
@@ -47,7 +47,7 @@ class NewsDetailViewController: BaseViewController{
         }
         catch{
             DispatchQueue.main.async {
-                Alert.present(title: error.localizedDescription, message: "", actions: .ok(handler: {
+                Alert.present(title: error.localizedDescription, message: "", actions: .okay(handler: {
                 }), from: self)
             }
         }

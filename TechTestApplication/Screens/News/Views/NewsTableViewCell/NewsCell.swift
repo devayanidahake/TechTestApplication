@@ -6,8 +6,8 @@
 //
 
 import Foundation
-import UIKit
 import SDWebImage
+import UIKit
 
 class NewsCell: UITableViewCell {
     // MARK: Properties

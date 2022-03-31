@@ -43,17 +43,13 @@ class NewsViewController: BaseViewController{
         tableView.register(NewsCell.nib, forCellReuseIdentifier: NewsCell.identifier)
     }
     
-    
-    private func configureViewModel() {        
+    private func configureViewModel() {
         fetchNewsFeed()
         
         // All callbacks from view models
         handleDataLoader()
-        
         handleErrorNotification()
-        
         handleTableviewRefreshActivity()
-        
         handleNavigationToDetailScreen()
     }
 }
@@ -68,13 +64,13 @@ extension NewsViewController{
     
     private func handleDataLoader() {
         // Show loader till list appears
-        viewModel.shouldShowAnimator = { [weak self] (showLoader) in
+        viewModel.shouldShowAnimator = { [weak self] showLoader in
             Task{[weak self] in
                 self?.showDataLoader(show: showLoader)
             }
         }
     }
-  
+    
     private func handleErrorNotification() {
         // Show network error message
         viewModel.showAPIError = { [weak self] error in
@@ -96,7 +92,7 @@ extension NewsViewController{
     
     private func handleNavigationToDetailScreen() {
         // Navigate to detail screen
-        viewModel.navigateToNewsDetailView = { [weak self] (newsURL) in
+        viewModel.navigateToNewsDetailView = { [weak self] newsURL in
             let detailVM = NewsDetailViewModel(newsURL: newsURL)
             guard let detailVC = NewsDetailViewController.create(model: detailVM) else{return}
             self?.navigationController?.pushViewController(detailVC, animated: true)
@@ -121,7 +117,7 @@ extension NewsViewController{
     
     @MainActor
     private func showApplicationAlert(_ sourceVC: NewsViewController, alertTitle: String) {
-        Alert.present(title: alertTitle, message: "", actions: .ok(handler: {
+        Alert.present(title: alertTitle, message: "", actions: .okay(handler: {
         }), from: sourceVC)
     }
 }
