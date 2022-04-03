@@ -9,7 +9,7 @@ import Foundation
 
 class NewsMockDataService: NewsDataServiceProtocol {
     func getNewsData(api: NewsApi) async throws -> NewsArray {
-        if !(NetworkMonitor.shared.isReachable){
+        if !(NetworkMonitor.shared.isReachable) {
             throw APIError.noNetwork
         }
         if api == .invalid {
@@ -18,8 +18,7 @@ class NewsMockDataService: NewsDataServiceProtocol {
         do {
             let newsArray = try StubGenerator.stubNews()
             return newsArray
-        }
-        catch{
+        } catch {
             throw error
         }
     }

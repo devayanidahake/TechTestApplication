@@ -9,13 +9,13 @@ import Foundation
 import UIKit
 
 
-class NewsViewController: BaseViewController{
+class NewsViewController: BaseViewController {
     // MARK: Properties
-    @IBOutlet var tableView: UITableView!
+    @IBOutlet private var tableView: UITableView!
     
     @IBOutlet private var animator: UIActivityIndicatorView!
     
-    lazy var viewModel: NewsViewModelProtocol = {
+    private lazy var viewModel: NewsViewModelProtocol = {
         NewsViewModel(newsDataService: NewsDataService(withNetworkManager: NetworkManager()))
     }() as NewsViewModelProtocol
     
@@ -54,10 +54,10 @@ class NewsViewController: BaseViewController{
     }
 }
 
-extension NewsViewController{
+extension NewsViewController {
     private func fetchNewsFeed() {
         // Get news data from VM
-        Task{[weak self] in
+        Task {[weak self] in
             await self?.viewModel.getNewsArray()
         }
     }
@@ -65,7 +65,7 @@ extension NewsViewController{
     private func handleDataLoader() {
         // Show loader till list appears
         viewModel.shouldShowAnimator = { [weak self] showLoader in
-            Task{[weak self] in
+            Task {[weak self] in
                 self?.showDataLoader(show: showLoader)
             }
         }
@@ -74,8 +74,8 @@ extension NewsViewController{
     private func handleErrorNotification() {
         // Show network error message
         viewModel.showAPIError = { [weak self] error in
-            Task{[weak self] in
-                guard let sourceVC = self else{return}
+            Task {[weak self] in
+                guard let sourceVC = self else {return}
                 self?.showApplicationAlert(sourceVC, alertTitle: error.localizedDescription)
             }
         }
@@ -84,7 +84,7 @@ extension NewsViewController{
     private func handleTableviewRefreshActivity() {
         // Reload TableView closure
         viewModel.reloadTableView = { [weak self] in
-            Task{[weak self] in
+            Task {[weak self] in
                 self?.reloadTableView()
             }
         }
@@ -94,7 +94,7 @@ extension NewsViewController{
         // Navigate to detail screen
         viewModel.navigateToNewsDetailView = { [weak self] newsURL in
             let detailVM = NewsDetailViewModel(newsURL: newsURL)
-            guard let detailVC = NewsDetailViewController.create(model: detailVM) else{return}
+            guard let detailVC = NewsDetailViewController.create(model: detailVM) else {return}
             self?.navigationController?.pushViewController(detailVC, animated: true)
         }
     }
@@ -107,10 +107,9 @@ extension NewsViewController{
     
     @MainActor
     private func showDataLoader(show: Bool) {
-        if(show){
+        if show {
             self.animator.startAnimating()
-        }
-        else{
+        } else {
             self.animator.stopAnimating()
         }
     }
@@ -152,6 +151,7 @@ extension NewsViewController: UITableViewDataSource {
         // cell  will be created with CellVM data
         let cellVM = viewModel.getCellViewModel(at: indexPath)
         cell.cellViewModel = cellVM
+        cell.updateCellProperties(cellViewModel: cellVM)
         return cell
     }
 }

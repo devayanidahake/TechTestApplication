@@ -8,7 +8,7 @@
 import Foundation
 typealias NewsArray = [News]
 
-struct NewsDict: Codable{
+struct NewsDict: Codable {
     let category: String
     let newsArray: NewsArray
 

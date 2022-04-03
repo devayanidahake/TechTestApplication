@@ -7,27 +7,27 @@
 
 import Foundation
 struct Constants {
-    struct Titles{
+    struct Titles {
         static let newsListTitle = "News"
         static let newsDetailTitle = "News-Details"
     }
     
-    struct URLs{
+    struct URLs {
         static let baseURL = "https://inshortsapi.vercel.app"
         static let newsListEndpoints = "/news?category=science"
     }
     
-    struct StoryboardXIBNames{
+    struct StoryboardXIBNames {
         static let main = "Main"
         static let newsViewController = "NewsViewController"
         static let newsDetailViewController = "NewsDetailViewController"
     }
     
-    struct Value{
+    struct Value {
         static let tableRowEstimatedHeight = 90.0
     }
   
-    struct ErrorMessages{
+    struct ErrorMessages {
         static let xibNotFound = "xib does not exists"
         static let invalidURL = "Invalid URL"
         static let invalidResponse = "Invalid response"

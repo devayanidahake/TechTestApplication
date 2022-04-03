@@ -30,45 +30,4 @@ class NewsViewControllerTest: XCTestCase {
         let _ = sut.view
         XCTAssertEqual(sut.navigationItem.title, Constants.Titles.newsListTitle)
     }
-    
-    func testIfTableViewCellGetsCreated() {
-        // Given
-        _ = sut.view
-        guard let cell = sut.tableView.dequeueReusableCell(withIdentifier: NewsCell.identifier) as? NewsCell
-        else { fatalError(Constants.ErrorMessages.xibNotFound) }
-        
-        // cell  will be created with CellVM data
-        //When
-        let cellVM = NewsCellViewModel(author: "A", title: "J", date: "abcd ", imageUrl: "https://www.google.com")
-        cell.cellViewModel = cellVM
-        
-        //Then
-        XCTAssertNotNil(cell.cellViewModel?.title)
-        XCTAssertEqual(cell.cellViewModel?.author, "A")
-    }
-    
-    func testIFAPIServerAlertISshown() {
-        
-        var errorDescription: String? = nil
-        let expect = XCTestExpectation(description: "no network alert is shown")
-        sut.viewModel = NewsViewModel.init(newsDataService: NewsDataService(withNetworkManager: NetworkManager()))
-
-        sut.viewModel.showAPIError = { (error) in
-            errorDescription = error.localizedDescription
-            Alert.present(title: errorDescription, message: "", from: self.sut)
-            expect.fulfill()
-        }
-        
-        // When
-
-        sut.viewModel.showAPIError?(APIError.noNetwork)
-        
-        // XCTAssert error closure triggered
-        wait(for: [expect], timeout: 5.0)
-        
-        // Server Error
-        XCTAssertNotNil(errorDescription)
-        
-    }
-
 }

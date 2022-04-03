@@ -9,12 +9,10 @@ import Foundation
 
 class MockNetworkManager: NetworkManagerProtocol {    
     func apiGETMethod(url: URL) async throws -> Data {
-        do{
+        do {
             let responseData = try StubGenerator.stubResponseData()
             return responseData
-        }
-        catch
-        {
+        } catch {
             throw APIError.responseError
         }
     }

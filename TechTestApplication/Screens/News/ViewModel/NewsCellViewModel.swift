@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct NewsCellViewModel{
+struct NewsCellViewModel {
     let author: String
     let title: String
     let date: String

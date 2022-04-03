@@ -36,7 +36,7 @@ final class NewsViewModel: NewsViewModelProtocol {
     
     // Obeserved Properties
     var isDataLoading = true {
-        didSet{
+        didSet {
             shouldShowAnimator?(isDataLoading)
         }
     }
@@ -48,7 +48,7 @@ final class NewsViewModel: NewsViewModelProtocol {
     }
     
     var serverError: Error? {
-        didSet{
+        didSet {
             guard let serverError = serverError else {
                 return
             }
@@ -63,14 +63,12 @@ final class NewsViewModel: NewsViewModelProtocol {
     
     func getNewsArray() async {
         self.isDataLoading = true
-        do{
+        do {
             let newsResults = try await newsDataService.getNewsData(api: .list)
             self.isDataLoading = false
             self.newsArray = newsResults
             self.createNewsCellModels()
-        }
-        catch
-        {
+        } catch {
             self.isDataLoading = false
             self.serverError = error
         }
@@ -98,7 +96,7 @@ final class NewsViewModel: NewsViewModelProtocol {
         return newsCellViewModels[indexPath.row]
     }
     
-    func handleCellPressedAtIndex(index: Int){
+    func handleCellPressedAtIndex(index: Int) {
         let rowNews = self.newsArray[index]
         navigateToNewsDetailView?(rowNews.url)
     }

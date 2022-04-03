@@ -10,7 +10,7 @@ import Foundation
 enum NewsApi {
     case list
     case invalid
-    var apiURL: String{
+    var apiURL: String {
         switch self {
         case .list:
             return Constants.URLs.baseURL + Constants.URLs.newsListEndpoints
@@ -34,17 +34,14 @@ class NewsDataService: NewsDataServiceProtocol {
     }
     
     
-    func getNewsData(api: NewsApi) async throws -> NewsArray
-    {
-        do{
+    func getNewsData(api: NewsApi) async throws -> NewsArray {
+        do {
             // Check if api url is correct
             let url = try createNewsURL(api: api)
             let responseData = try await self.networkManager.apiGETMethod(url: url)
             let newsDictData = try self.parseServerResponseData(serverResponseData: responseData)
             return newsDictData.newsArray
-        }
-        catch
-        {
+        } catch {
             throw error
         }
     }
@@ -63,11 +60,10 @@ class NewsDataService: NewsDataServiceProtocol {
     private func parseServerResponseData(serverResponseData: Data?) throws -> NewsDict {
         guard let data = serverResponseData
         else {  throw APIError.responseError }
-        do{
+        do {
             let newsDict = try JSONDecoder().decode(NewsDict.self, from: data)
             return newsDict
-        }
-        catch{
+        } catch {
             throw APIError.responseError
         }
     }

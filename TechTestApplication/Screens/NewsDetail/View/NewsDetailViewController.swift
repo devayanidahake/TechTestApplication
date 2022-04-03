@@ -8,13 +8,13 @@
 import Foundation
 import WebKit
 
-class NewsDetailViewController: BaseViewController{    
+class NewsDetailViewController: BaseViewController {    
     // MARK: Properties
     @IBOutlet private var webView: WKWebView!
     
     @IBOutlet private var animator: UIActivityIndicatorView!
     
-    lazy var viewModel: NewsDetailViewModelProtocol = {
+    private lazy var viewModel: NewsDetailViewModelProtocol = {
         NewsDetailViewModel(newsURL: "")
     }() as NewsDetailViewModelProtocol
     
@@ -36,34 +36,38 @@ class NewsDetailViewController: BaseViewController{
     }
     
     private func configureView() {
-        animator.startAnimating()
         setNavigationAppearance(title: Constants.Titles.newsDetailTitle)
+        animator.hidesWhenStopped = true
+        shouldShowAnimator(show: true)
     }
     
     private func configureViewModel() {
-        do{
+        do {
             let webViewURL = try viewModel.fetchWebViewURLToLoad()
             self.webView.load(URLRequest(url: webViewURL))
+        } catch {
+            self.showApplicationAlert(self, alertTitle: error.localizedDescription)
         }
-        catch{
-            DispatchQueue.main.async {
-                Alert.present(title: error.localizedDescription, message: "", actions: .okay(handler: {
-                }), from: self)
-            }
+    }
+    
+    @MainActor
+    private func showApplicationAlert(_ sourceVC: NewsDetailViewController, alertTitle: String) {
+        shouldShowAnimator(show: false)
+        Alert.present(title: alertTitle, message: "", actions: .okay(handler: {
+        }), from: sourceVC)
+    }
+    
+    func shouldShowAnimator(show: Bool) {
+        if show {
+            animator.startAnimating()
+        } else {
+            animator.stopAnimating()
         }
     }
 }
 
 extension NewsDetailViewController: WKNavigationDelegate {
-    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        DispatchQueue.main.async {
-            self.animator.stopAnimating()
-        }
-    }
-    
-    func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
-        DispatchQueue.main.async {
-            self.animator.stopAnimating()
-        }
+    func webView(_ webView: WKWebView, didCommit navigation: WKNavigation!) {
+        self.shouldShowAnimator(show: false)
     }
 }

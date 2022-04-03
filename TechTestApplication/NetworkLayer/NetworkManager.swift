@@ -52,9 +52,8 @@ class NetworkManager: NetworkManagerProtocol {
             guard (response as? HTTPURLResponse)?.statusCode == 200 else {
                 throw APIError.responseError
             }
-            
            return dataObj
-        }catch{
+        } catch {
             throw APIError.unknown
         }
     }

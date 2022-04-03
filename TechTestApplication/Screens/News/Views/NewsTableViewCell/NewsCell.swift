@@ -9,6 +9,10 @@ import Foundation
 import SDWebImage
 import UIKit
 
+protocol NewsCellAppearanceProtocol {
+    func updateCellProperties(cellViewModel: NewsCellViewModel)
+}
+
 class NewsCell: UITableViewCell {
     // MARK: Properties
     @IBOutlet private var title: UILabel!
@@ -21,18 +25,8 @@ class NewsCell: UITableViewCell {
     
     class var nib: UINib { return UINib(nibName: identifier, bundle: nil) }
     
-    var cellViewModel: NewsCellViewModel? {
-        didSet {
-            self.title.text = cellViewModel?.title ?? ""
-            self.author.text = cellViewModel?.author ?? ""
-            if let urlstring = cellViewModel?.imageUrl, let imageURL = URL(string: urlstring){
-                self.imageV.contentMode = .scaleAspectFill
-                self.imageV.sd_setImage(with: imageURL,
-                                        placeholderImage: UIImage(named: Constants.Image.placeholderImage),
-                                        options: .transformAnimatedImage, context: nil)
-            }
-        }
-    }
+    var cellViewModel: NewsCellViewModel?
+    
     
     // MARK: Methods
     override func awakeFromNib() {
@@ -62,5 +56,17 @@ class NewsCell: UITableViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
+    }
+}
+extension NewsCell: NewsCellAppearanceProtocol {
+    func updateCellProperties(cellViewModel: NewsCellViewModel) {
+        self.title.text = cellViewModel.title
+        self.author.text = cellViewModel.author
+        if let imageURL = URL(string: cellViewModel.imageUrl) {
+            self.imageV.contentMode = .scaleAspectFill
+            self.imageV.sd_setImage(with: imageURL,
+                                    placeholderImage: UIImage(named: Constants.Image.placeholderImage),
+                                    options: .transformAnimatedImage, context: nil)
+        }
     }
 }

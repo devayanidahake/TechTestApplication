@@ -19,8 +19,7 @@ class StubGenerator {
             
             let newsDict = try decoder.decode(NewsDict.self, from: data)
             return newsDict.newsArray
-        }
-        catch{
+        } catch {
             throw APIError.unknown
         }
     }
@@ -33,8 +32,7 @@ class StubGenerator {
         do {
             let data = try Data(contentsOf: URL(fileURLWithPath: path))
             return data
-        }
-        catch{
+        } catch {
             throw APIError.unknown
         }
     }

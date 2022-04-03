@@ -10,6 +10,7 @@ import Foundation
 protocol NewsDetailViewModelProtocol: AnyObject {
     func fetchWebViewURLToLoad() throws -> URL
 }
+
 final class NewsDetailViewModel: NewsDetailViewModelProtocol {
     // MARK: Properties
     var newsDetailURL: String
@@ -19,7 +20,7 @@ final class NewsDetailViewModel: NewsDetailViewModelProtocol {
     }
     
     // MARK: Methods
-    func fetchWebViewURLToLoad() throws -> URL  {
+    func fetchWebViewURLToLoad() throws -> URL {
         guard let webViewURL = URL(string: newsDetailURL) else {
             throw APIError.invalidURL
         }
