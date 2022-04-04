@@ -11,6 +11,7 @@
 		5525943B27F4BF76002ABCF1 /* NewsDataServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5525943A27F4BF76002ABCF1 /* NewsDataServiceTest.swift */; };
 		5525943F27F4C237002ABCF1 /* MockNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5525943E27F4C237002ABCF1 /* MockNetworkManager.swift */; };
 		552EAD9327F97AB6005BCC4C /* NewsCellTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552EAD9227F97AB6005BCC4C /* NewsCellTest.swift */; };
+		552EAD9527F983CD005BCC4C /* UIDevice+Jailbroken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552EAD9427F983CD005BCC4C /* UIDevice+Jailbroken.swift */; };
 		5555CA9A27ED9E6400C7C540 /* NewsCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5555CA9927ED9E6400C7C540 /* NewsCellViewModel.swift */; };
 		55687B6F27EDBB7E008FF044 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55687B6E27EDBB7E008FF044 /* Alert.swift */; };
 		55687B7127EDBD99008FF044 /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55687B7027EDBD99008FF044 /* NetworkMonitor.swift */; };
@@ -55,6 +56,7 @@
 		5525943A27F4BF76002ABCF1 /* NewsDataServiceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsDataServiceTest.swift; sourceTree = "<group>"; };
 		5525943E27F4C237002ABCF1 /* MockNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockNetworkManager.swift; sourceTree = "<group>"; };
 		552EAD9227F97AB6005BCC4C /* NewsCellTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsCellTest.swift; sourceTree = "<group>"; };
+		552EAD9427F983CD005BCC4C /* UIDevice+Jailbroken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+Jailbroken.swift"; sourceTree = "<group>"; };
 		5555CA9927ED9E6400C7C540 /* NewsCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsCellViewModel.swift; sourceTree = "<group>"; };
 		55687B6E27EDBB7E008FF044 /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
 		55687B7027EDBD99008FF044 /* NetworkMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
@@ -127,6 +129,7 @@
 			isa = PBXGroup;
 			children = (
 				55687B6E27EDBB7E008FF044 /* Alert.swift */,
+				552EAD9427F983CD005BCC4C /* UIDevice+Jailbroken.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -476,6 +479,7 @@
 			files = (
 				55C3A7BB27EF7CE700F98A46 /* NewsMockDataService.swift in Sources */,
 				5585D5FE27F32C95004BE904 /* APIError.swift in Sources */,
+				552EAD9527F983CD005BCC4C /* UIDevice+Jailbroken.swift in Sources */,
 				550E23BB27ECB0EF00AB2EC9 /* NetworkManager.swift in Sources */,
 				55687B7127EDBD99008FF044 /* NetworkMonitor.swift in Sources */,
 				55F36A8827EC7E8F0027BDAF /* NewsDataService.swift in Sources */,
