@@ -13,19 +13,27 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession,
                options connectionOptions: UIScene.ConnectionOptions) {
         guard let _ = (scene as? UIWindowScene) else { return }
+        // Check if the device is jailbroken
         checkIfDeviceIsJailbroken()
     }
 }
 
 extension SceneDelegate {
+    private func suspendApplecation() {
+       UIApplication.shared.perform(#selector(NSXPCConnection.suspend))
+    }
+    
     func checkIfDeviceIsJailbroken() {
-        self.window?.rootViewController = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController()
         if UIDevice.current.isJailBroken {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                // Get the root view controller to show alert
+                self.window?.rootViewController = UIStoryboard(name: Constants.StoryboardXIBNames.main, bundle: nil).instantiateInitialViewController()
                 guard let sourceVC = self.window?.rootViewController else { return }
+                // Remove the first screen
                 (sourceVC as? UINavigationController)?.visibleViewController?.removeFromParent()
+                // Show alert to user
                 Alert.present(title: Constants.ErrorMessages.jailbrokenDevice, message: "", actions: .okay(handler: {
-                    UIApplication.shared.perform(#selector(NSXPCConnection.suspend))
+                    self.suspendApplecation()
                 }), from: sourceVC)
             }
         }

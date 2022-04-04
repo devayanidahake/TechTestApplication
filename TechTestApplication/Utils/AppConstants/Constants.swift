@@ -34,7 +34,7 @@ struct Constants {
         static let unknownError = "Unknown error"
         static let noInternetConnection = "No internet connection"
         static let noError = "No Error"
-        static let jailbrokenDevice = "This Device is JailBroken.You cannot access the application here."
+        static let jailbrokenDevice = "This Device is JailBroken.Please quit the application."
     }
     
     struct Image {
