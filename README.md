@@ -1,5 +1,5 @@
 # TechTestApplication
-This is news application. We have used below public API for network calls and fetched news.
+This is news application. We have used a public API for network calls and fetched news.
 
 ## Project Description
 The application has two screens News List and News Detail screen.
