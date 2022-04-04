@@ -28,6 +28,6 @@ class NewsViewControllerTest: XCTestCase {
     
     func testIsNavigationTitleCorrect() {
         let _ = sut.view
-        XCTAssertEqual(sut.navigationItem.title, Constants.Titles.newsListTitle)
+        XCTAssertEqual(sut.navigationItem.title, Constants.Texts.newsListTitle)
     }
 }

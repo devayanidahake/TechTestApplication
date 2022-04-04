@@ -29,7 +29,7 @@ class NewsViewController: BaseViewController {
     private func configureView() {
         animator.startAnimating()
         setTableViewProperties()
-        setNavigationAppearance(title: Constants.Titles.newsListTitle)
+        setNavigationAppearance(title: Constants.Texts.newsListTitle)
     }
     
     private func setTableViewProperties() {

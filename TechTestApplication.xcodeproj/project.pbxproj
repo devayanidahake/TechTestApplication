@@ -13,6 +13,7 @@
 		552EAD9327F97AB6005BCC4C /* NewsCellTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552EAD9227F97AB6005BCC4C /* NewsCellTest.swift */; };
 		552EAD9527F983CD005BCC4C /* UIDevice+Jailbroken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552EAD9427F983CD005BCC4C /* UIDevice+Jailbroken.swift */; };
 		5555CA9A27ED9E6400C7C540 /* NewsCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5555CA9927ED9E6400C7C540 /* NewsCellViewModel.swift */; };
+		555AF4D627FB02260090E99B /* UIDeviceJailbrokenTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 555AF4D527FB02260090E99B /* UIDeviceJailbrokenTest.swift */; };
 		55687B6F27EDBB7E008FF044 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55687B6E27EDBB7E008FF044 /* Alert.swift */; };
 		55687B7127EDBD99008FF044 /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55687B7027EDBD99008FF044 /* NetworkMonitor.swift */; };
 		55823B8E27F56A5400C9D7CF /* NewsViewControllerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55823B8D27F56A5400C9D7CF /* NewsViewControllerTest.swift */; };
@@ -58,6 +59,7 @@
 		552EAD9227F97AB6005BCC4C /* NewsCellTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsCellTest.swift; sourceTree = "<group>"; };
 		552EAD9427F983CD005BCC4C /* UIDevice+Jailbroken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+Jailbroken.swift"; sourceTree = "<group>"; };
 		5555CA9927ED9E6400C7C540 /* NewsCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsCellViewModel.swift; sourceTree = "<group>"; };
+		555AF4D527FB02260090E99B /* UIDeviceJailbrokenTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIDeviceJailbrokenTest.swift; sourceTree = "<group>"; };
 		55687B6E27EDBB7E008FF044 /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
 		55687B7027EDBD99008FF044 /* NetworkMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
 		55823B8D27F56A5400C9D7CF /* NewsViewControllerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsViewControllerTest.swift; sourceTree = "<group>"; };
@@ -288,6 +290,7 @@
 				55823B8D27F56A5400C9D7CF /* NewsViewControllerTest.swift */,
 				55823B8F27F56CBC00C9D7CF /* NewsDetailViewControllerTest.swift */,
 				552EAD9227F97AB6005BCC4C /* NewsCellTest.swift */,
+				555AF4D527FB02260090E99B /* UIDeviceJailbrokenTest.swift */,
 			);
 			path = TechTestApplicationTests;
 			sourceTree = "<group>";
@@ -509,6 +512,7 @@
 				5525943B27F4BF76002ABCF1 /* NewsDataServiceTest.swift in Sources */,
 				55823B9027F56CBC00C9D7CF /* NewsDetailViewControllerTest.swift in Sources */,
 				552EAD9327F97AB6005BCC4C /* NewsCellTest.swift in Sources */,
+				555AF4D627FB02260090E99B /* UIDeviceJailbrokenTest.swift in Sources */,
 				55823B8E27F56A5400C9D7CF /* NewsViewControllerTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -28,21 +28,32 @@ class NewsDataServiceTest: XCTestCase {
         Task{[weak self] in
             let data = try await self?.sut?.getNewsData(api:.list)
             expect.fulfill()
-            DispatchQueue.main.async {
-                XCTAssertNotNil(data)
-            }
-            wait(for: [expect], timeout: 8.0)
+            XCTAssertNotNil(data)
+            wait(for: [expect], timeout: 5.0)
         }
     }
     
     func testGetNewsDataFunctionForErrorResponse() {
-        Task{
-            do{
-                let _ = try await sut.getNewsData(api:.invalid)
-            }
-            catch{
+//        Task{
+//            do{
+//                let _ = try await sut.getNewsData(api:.invalid)
+//            }
+//            catch{
+//                XCTAssertNotNil(error)
+//            }
+//        }
+        
+        let expect = XCTestExpectation(description: "Error response")
+
+        Task{[weak self] in
+            do {
+            let _ = try await self?.sut?.getNewsData(api:.list)
+            expect.fulfill()
+            } catch {
                 XCTAssertNotNil(error)
+
             }
+            wait(for: [expect], timeout: 3.0)
         }
     }
 }

@@ -55,16 +55,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "9DC52C4D-B9E0-4997-B44C-A4FB8D42D8FE"
-            shouldBeEnabled = "No"
+            uuid = "FC41C1F6-05D9-4F3C-8DAD-05079BA8496A"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "TechTestApplication/Mocks/MockNetworkManager/MockNetworkManager.swift"
+            filePath = "TechTestApplicationTests/NewsDataServiceTest.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "12"
-            endingLineNumber = "12"
-            landmarkName = "apiGETMethod(url:)"
+            startingLineNumber = "17"
+            endingLineNumber = "17"
+            landmarkName = "setUpWithError()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

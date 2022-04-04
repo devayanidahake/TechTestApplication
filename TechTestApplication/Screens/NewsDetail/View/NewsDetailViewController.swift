@@ -36,7 +36,7 @@ class NewsDetailViewController: BaseViewController {
     }
     
     private func configureView() {
-        setNavigationAppearance(title: Constants.Titles.newsDetailTitle)
+        setNavigationAppearance(title: Constants.Texts.newsDetailTitle)
         animator.hidesWhenStopped = true
         shouldShowAnimator(show: true)
     }

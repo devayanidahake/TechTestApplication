@@ -27,9 +27,9 @@ extension Alert {
         private var title: String {
             switch self {
             case .okay:
-                return "OK"
+                return Constants.Texts.alertOkTitle
             case .close:
-                return "Close"
+                return Constants.Texts.alertCancelTitle
             }
         }
         

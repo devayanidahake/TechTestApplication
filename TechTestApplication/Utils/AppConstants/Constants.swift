@@ -7,9 +7,12 @@
 
 import Foundation
 struct Constants {
-    struct Titles {
+    struct Texts {
         static let newsListTitle = "News"
         static let newsDetailTitle = "News-Details"
+        static let alertOkTitle = "Ok"
+        static let alertCancelTitle = "Cancel"
+        static let alertQuitTitle = "Quit"
     }
     
     struct URLs {

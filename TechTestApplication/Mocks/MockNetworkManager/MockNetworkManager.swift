@@ -7,7 +7,8 @@
 
 import Foundation
 
-class MockNetworkManager: NetworkManagerProtocol {    
+
+class MockNetworkManager: NetworkManagerProtocol {
     func apiGETMethod(url: URL) async throws -> Data {
         do {
             let responseData = try StubGenerator.stubResponseData()

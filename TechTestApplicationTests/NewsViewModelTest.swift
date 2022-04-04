@@ -9,12 +9,11 @@ import XCTest
 @testable import TechTestApplication
 
 class NewsViewModelTest: XCTestCase {
-    
+    var mockAPIService = NewsMockDataService()
     var sut: NewsViewModel! 
     
     override func setUpWithError() throws {
         super.setUp()
-        let mockAPIService = NewsMockDataService()
         sut = NewsViewModel(newsDataService: mockAPIService)
     }
     
@@ -41,6 +40,25 @@ class NewsViewModelTest: XCTestCase {
         for newsobj in sut.newsArray {
             XCTAssertNotNil(newsobj.author)
         }
+    }
+    
+    func testGetNewsArrayFunctionForErrorResponse() {
+        
+        // Given
+        mockAPIService.responseType = .error
+        let expect = expectation(description: "API failure")
+        
+        // When
+        Task{
+            await self.sut.getNewsArray()
+            expect.fulfill()
+        }
+        
+         waitForExpectations(timeout: 5)
+                
+        // Sut should display error
+        XCTAssertNotNil(sut.serverError)
+    
     }
     
    
@@ -102,7 +120,7 @@ class NewsViewModelTest: XCTestCase {
         }
         
         // XCTAssert error closure triggered
-        wait(for: [expect], timeout: 5.0)
+        wait(for: [expect], timeout: 8.0)
         
         // Server Error
         XCTAssertNotNil(sut.serverError)
