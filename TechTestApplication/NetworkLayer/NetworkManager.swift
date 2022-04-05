@@ -29,9 +29,7 @@ class NetworkManager: NetworkManagerProtocol {
             throw APIError.noNetwork
         }
     }
-    
-    
-    
+
     func apiGETMethod(url: URL) async throws -> Data {
         try checkInternectConnectivity()
         

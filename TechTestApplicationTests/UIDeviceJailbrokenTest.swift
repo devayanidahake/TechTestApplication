@@ -11,7 +11,6 @@ import XCTest
 @testable import TechTestApplication
 
 class UIDeviceJailbrokenTest: XCTestCase {
-    
     override func setUpWithError() throws {
         super.setUp()
     }
@@ -24,15 +23,11 @@ class UIDeviceJailbrokenTest: XCTestCase {
         // Given
         var isDeviceJailBreak = false
         let expect = XCTestExpectation(description: "Device is jailbroken")
-        
         // When
          isDeviceJailBreak = UIDevice.current.checkisDeviceJailBrocken()
         expect.fulfill()
-        
         // Then
         wait(for: [expect], timeout: 5.0)
-        
         XCTAssertFalse(isDeviceJailBreak)
     }
-    
 }

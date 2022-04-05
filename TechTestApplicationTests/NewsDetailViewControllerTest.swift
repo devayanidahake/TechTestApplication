@@ -11,10 +11,8 @@ import XCTest
 @testable import TechTestApplication
 
 class NewsDetailViewControllerTest: XCTestCase {
-        
     override func setUpWithError() throws {
         super.setUp()
-        
     }
     
     override func tearDownWithError() throws {
@@ -32,14 +30,11 @@ class NewsDetailViewControllerTest: XCTestCase {
         // Given
         let vm = NewsDetailViewModel(newsURL: Constants.URLs.baseURL)
         let expect = XCTestExpectation(description: "detail screen object is created")
-
+        // When
         let newsDetailView = NewsDetailViewController.create(model: vm)
         expect.fulfill()
-        
+        // Then
         XCTAssertNotNil(newsDetailView)
-                                       
         wait(for: [expect], timeout: 3.0)
     }
-
 }
-

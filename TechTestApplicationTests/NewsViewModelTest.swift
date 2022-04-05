@@ -23,7 +23,6 @@ class NewsViewModelTest: XCTestCase {
     }
     
     func testGetNewsArrayFunctionForSuccessResponse() {
-        
         // Given
         let expect = expectation(description: "API success")
         
@@ -43,7 +42,6 @@ class NewsViewModelTest: XCTestCase {
     }
     
     func testGetNewsArrayFunctionForErrorResponse() {
-        
         // Given
         mockAPIService.responseType = .error
         let expect = expectation(description: "API failure")
@@ -58,15 +56,11 @@ class NewsViewModelTest: XCTestCase {
                 
         // Sut should display error
         XCTAssertNotNil(sut.serverError)
-    
     }
-    
-   
+
     func testLoadingWhenFetchingNewsFromServer() {
-        
         // Given
         let expect = XCTestExpectation(description: "Loading status updated")
-        
         sut.shouldShowAnimator = { (showAnimator) in
             expect.fulfill()            
         }
@@ -75,13 +69,9 @@ class NewsViewModelTest: XCTestCase {
             await self.sut.getNewsArray()
             self.sut?.isDataLoading = false
         }
-        
         wait(for: [expect], timeout: 3.0)
-
-        
         // Assert
         XCTAssertTrue(sut.isDataLoading)
-        
     }
     
     func testCreateNewsCellViewModel() {
@@ -90,20 +80,14 @@ class NewsViewModelTest: XCTestCase {
         sut.reloadTableView = { () in
             expect.fulfill()
         }
-        
         // When
         Task{
             await self.sut.getNewsArray()
         }
-        
         // XCTAssert reload closure triggered
         wait(for: [expect], timeout: 5.0)
-
         // Number of cell view model is equal to the number of photos
         XCTAssertEqual( sut.newsCellViewModels.count, 2 )
-        
-        
-        
     }
     
     func testShowErrorWhenNoNetwork() {
@@ -124,7 +108,6 @@ class NewsViewModelTest: XCTestCase {
         
         // Server Error
         XCTAssertNotNil(sut.serverError)
-        
     }
     
     func testGetCellViewModelForSuccessReturn() {
@@ -161,7 +144,6 @@ class NewsViewModelTest: XCTestCase {
         wait(for: [expect], timeout: 3.0)
         // Server Error
         XCTAssertTrue(isDtailScreenIsNavigatedwithIndex)
-        
     }
     
     func testIfServerErrorIsInvalid() {
@@ -170,10 +152,8 @@ class NewsViewModelTest: XCTestCase {
         sut.showAPIError = { (error) in
             isServerErrorISInValid = false
         }
-        
         // When
         sut.serverError = nil
-
         // Server Error
         XCTAssertTrue(isServerErrorISInValid)
     }

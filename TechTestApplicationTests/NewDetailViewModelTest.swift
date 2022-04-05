@@ -23,18 +23,14 @@ class NewsDetailViewModelTest: XCTestCase {
         let urlString = "https://www.google.com"
         sut.newsDetailURL = urlString
         var webViewURL: URL? = nil
-        
-        do{
+        do {
         let Url = try sut.fetchWebViewURLToLoad()
             webViewURL = Url
             expect.fulfill()
-        }
-        catch{
-            
+        } catch {
         }
         // WHEN
         wait(for: [expect], timeout: 3.0)
-
         // Assert
         XCTAssertNotNil(webViewURL)
     }
@@ -43,5 +39,4 @@ class NewsDetailViewModelTest: XCTestCase {
         sut = nil
         super.tearDown()
     }
-    
 }

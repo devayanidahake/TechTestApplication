@@ -24,7 +24,6 @@ class NewsDataServiceTest: XCTestCase {
     
     func testGetNewsDataFunctionForSuccessResponse() {
         let expect = XCTestExpectation(description: "detail screen will be shown with news url")
-
         Task{[weak self] in
             let data = try await self?.sut?.getNewsData(api:.list)
             expect.fulfill()
@@ -34,15 +33,6 @@ class NewsDataServiceTest: XCTestCase {
     }
     
     func testGetNewsDataFunctionForErrorResponse() {
-//        Task{
-//            do{
-//                let _ = try await sut.getNewsData(api:.invalid)
-//            }
-//            catch{
-//                XCTAssertNotNil(error)
-//            }
-//        }
-        
         let expect = XCTestExpectation(description: "Error response")
 
         Task{[weak self] in
@@ -51,7 +41,6 @@ class NewsDataServiceTest: XCTestCase {
             expect.fulfill()
             } catch {
                 XCTAssertNotNil(error)
-
             }
             wait(for: [expect], timeout: 3.0)
         }

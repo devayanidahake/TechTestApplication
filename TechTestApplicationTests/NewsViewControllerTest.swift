@@ -11,7 +11,6 @@ import XCTest
 @testable import TechTestApplication
 
 class NewsViewControllerTest: XCTestCase {
-    
     var sut: NewsViewController!
     
     override func setUpWithError() throws {
