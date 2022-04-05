@@ -12,7 +12,7 @@ protocol NewsViewModelProtocol: AnyObject {
     var shouldShowAnimator: ((Bool) -> Void)? { get  set}
     var showAPIError: ((Error) -> Void)? { get  set}
     var navigateToNewsDetailView: ((String) -> Void)? { get  set}
-    var newsArray: NewsArray { get }
+    var newsArray: [News] { get }
     
     func getNewsArray() async
     func getCellViewModel(at indexPath: IndexPath) -> NewsCellViewModel
@@ -31,7 +31,7 @@ final class NewsViewModel: NewsViewModelProtocol {
     
     private var newsDataService: NewsDataServiceProtocol
     
-    var newsArray = NewsArray()
+    var newsArray = [News]()
     
     
     // Obeserved Properties

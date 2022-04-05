@@ -19,7 +19,7 @@ enum HTTPMethod: String {
 }
 
 protocol NetworkManagerProtocol {    
-    func apiGETMethod(url: URL) async throws -> Data
+    func initiateServiceRequest(url: URL) async throws -> Data
 }
 
 class NetworkManager: NetworkManagerProtocol {
@@ -30,7 +30,16 @@ class NetworkManager: NetworkManagerProtocol {
         }
     }
 
-    func apiGETMethod(url: URL) async throws -> Data {
+    /// This function is responsible to initialize network call with URLSession and
+    /// returns data of News Model or throw error.
+    /// ```
+    /// initiateServiceRequest
+    /// ```
+    /// - Warning: The function can throw an exception
+    /// - Parameter url:  - an webservice to call with request
+    /// - Returns: Data of News model.
+
+    func initiateServiceRequest(url: URL) async throws -> Data {
         try checkInternectConnectivity()
         
         // Set URL parameters

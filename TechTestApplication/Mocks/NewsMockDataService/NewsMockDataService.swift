@@ -15,7 +15,7 @@ enum ResponseType {
 class NewsMockDataService: NewsDataServiceProtocol {
     var responseType: ResponseType = .success
     
-    func getNewsData(api: NewsApi) async throws -> NewsArray {
+    func getNewsData(api: NewsApi) async throws -> [News] {
         switch responseType {
         case .success:
             if !(NetworkMonitor.shared.isReachable) {

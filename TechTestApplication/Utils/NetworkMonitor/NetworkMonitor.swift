@@ -15,6 +15,7 @@ class NetworkMonitor {
     private var status: NWPath.Status = .requiresConnection
     var isReachable: Bool { status == .satisfied }
     var isReachableOnCellular = true
+    let queueTestLabel = "NetworkMonitor"
     
     // MARK: Methods
     /**
@@ -33,7 +34,7 @@ class NetworkMonitor {
             }
         }
         
-        let queue = DispatchQueue(label: "NetworkMonitor")
+        let queue = DispatchQueue(label: queueTestLabel)
         monitor.start(queue: queue)
     }
     

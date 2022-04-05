@@ -17,7 +17,7 @@ class StubGenerator {
             let decoder = JSONDecoder()
             decoder.dateDecodingStrategy = .iso8601
             
-            let newsDict = try decoder.decode(NewsDict.self, from: data)
+            let newsDict = try decoder.decode(ServerResponse.self, from: data)
             return newsDict.newsArray
         } catch {
             throw APIError.unknown

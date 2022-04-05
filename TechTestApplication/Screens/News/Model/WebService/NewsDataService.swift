@@ -20,10 +20,8 @@ enum NewsApi {
     }
 }
 
-
-
 protocol NewsDataServiceProtocol {
-    func getNewsData(api: NewsApi) async throws -> NewsArray
+    func getNewsData(api: NewsApi) async throws -> [News]
 }
 
 class NewsDataService: NewsDataServiceProtocol {
@@ -34,11 +32,11 @@ class NewsDataService: NewsDataServiceProtocol {
     }
     
     
-    func getNewsData(api: NewsApi) async throws -> NewsArray {
+    func getNewsData(api: NewsApi) async throws -> [News] {
         do {
             // Check if api url is correct
             let url = try createNewsURL(api: api)
-            let responseData = try await self.networkManager.apiGETMethod(url: url)
+            let responseData = try await self.networkManager.initiateServiceRequest(url: url)
             let newsDictData = try self.parseServerResponseData(serverResponseData: responseData)
             return newsDictData.newsArray
         } catch {
@@ -57,11 +55,11 @@ class NewsDataService: NewsDataServiceProtocol {
         return url
     }
     
-    private func parseServerResponseData(serverResponseData: Data?) throws -> NewsDict {
+    private func parseServerResponseData(serverResponseData: Data?) throws -> ServerResponse {
         guard let data = serverResponseData
         else {  throw APIError.responseError }
         do {
-            let newsDict = try JSONDecoder().decode(NewsDict.self, from: data)
+            let newsDict = try JSONDecoder().decode(ServerResponse.self, from: data)
             return newsDict
         } catch {
             throw APIError.responseError
