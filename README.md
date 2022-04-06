@@ -26,7 +26,7 @@ Code coverage with unit testing : 73%
 ## Tech Details
 * Language : Swift 5
 
-* iOS Deployment Target : 15.4
+* iOS Deployment Target : 15.2
 
 * Xcode version : 13.3
 
