@@ -17,6 +17,7 @@
 		55687B6F27EDBB7E008FF044 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55687B6E27EDBB7E008FF044 /* Alert.swift */; };
 		55687B7127EDBD99008FF044 /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55687B7027EDBD99008FF044 /* NetworkMonitor.swift */; };
 		5573DB4727FC9ECC00C83DC7 /* ServerResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5573DB4627FC9ECC00C83DC7 /* ServerResponse.swift */; };
+		5573DB4A27FDA14C00C83DC7 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 5573DB4927FDA14C00C83DC7 /* SDWebImage */; };
 		55823B8E27F56A5400C9D7CF /* NewsViewControllerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55823B8D27F56A5400C9D7CF /* NewsViewControllerTest.swift */; };
 		55823B9027F56CBC00C9D7CF /* NewsDetailViewControllerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55823B8F27F56CBC00C9D7CF /* NewsDetailViewControllerTest.swift */; };
 		55823B9327F5937000C9D7CF /* StubGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55823B9227F5937000C9D7CF /* StubGenerator.swift */; };
@@ -97,6 +98,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5573DB4A27FDA14C00C83DC7 /* SDWebImage in Frameworks */,
 				5585D5F627F1B99D004BE904 /* SDWebImage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -372,6 +374,7 @@
 			name = TechTestApplication;
 			packageProductDependencies = (
 				5585D5F527F1B99D004BE904 /* SDWebImage */,
+				5573DB4927FDA14C00C83DC7 /* SDWebImage */,
 			);
 			productName = TechTestApplication;
 			productReference = 55F36A4127EC56D30027BDAF /* TechTestApplication.app */;
@@ -425,6 +428,7 @@
 			mainGroup = 55F36A3827EC56D30027BDAF;
 			packageReferences = (
 				5585D5F427F1B99D004BE904 /* XCRemoteSwiftPackageReference "SDWebImage" */,
+				5573DB4827FDA14C00C83DC7 /* XCRemoteSwiftPackageReference "SDWebImage" */,
 			);
 			productRefGroup = 55F36A4227EC56D30027BDAF /* Products */;
 			projectDirPath = "";
@@ -798,6 +802,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		5573DB4827FDA14C00C83DC7 /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImage.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 		5585D5F427F1B99D004BE904 /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SDWebImage/SDWebImage.git";
@@ -809,6 +821,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		5573DB4927FDA14C00C83DC7 /* SDWebImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5585D5F427F1B99D004BE904 /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImage;
+		};
 		5585D5F527F1B99D004BE904 /* SDWebImage */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 5585D5F427F1B99D004BE904 /* XCRemoteSwiftPackageReference "SDWebImage" */;
