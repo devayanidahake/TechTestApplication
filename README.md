@@ -12,7 +12,7 @@ Entry point of the application : NewsViewController
 
 URL : https://inshortsapi.vercel.app/news?category=science
 
-Code coverage with unit testing : 73% 
+Code coverage with unit testing : ~75% 
 
 ## Technical Features
 * MVVM architecture
